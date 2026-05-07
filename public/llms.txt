@@ -1,0 +1,48 @@
+# Algoritham Infrastructure Pvt. Ltd.
+
+> National technology integrator providing end-to-end IT managed services for
+> enterprises across India since 2009. Mumbai HQ. ISO 9001 + ITIL certified.
+> Microsoft, Cisco, Fortinet, Dell, HPE, VMware, AWS, IBM authorized partner.
+
+## What we do
+
+- **Infrastructure** — Enterprise servers (IBM, Lenovo, HP, Dell, Cisco), data center suites, virtualization, storage. Managed end-to-end with 24/7 NOC monitoring.
+- **Cloud Solutions** — IaaS, PaaS and SaaS deployment, migration, and ongoing operations across AWS, Azure, and private cloud.
+- **Cybersecurity** — FortiGate UTM, IPS, web filtering, application control, FortiGuard subscription services. Zero-trust architecture across the full estate.
+- **Networking** — Cisco-led firewall, router, switch, and security gateway management. Threshold alerts, error tracking, MPLS/SD-WAN.
+- **Telecom** — 30–70% cost savings negotiated across 40+ carriers. Hosted PBX, SIP, T1, Ethernet, MPLS, VOIP, high-speed circuits.
+- **System Integration** — ISO 9001 and ITIL-certified engineers integrating Cisco, Microsoft, IBM, HP across enterprise environments.
+
+## Coverage
+
+8 metros: Mumbai (HQ + primary DC), Delhi NCR, Bengaluru, Chennai, Pune, Hyderabad, Kolkata, Ahmedabad. 40+ telecom carriers nationwide. 100% Power & Network SLA. <15 min mean response time.
+
+## Track record
+
+- 15+ years of operations
+- 500+ enterprise projects delivered
+- 99.99% uptime SLA
+- 24/7 NOC monitoring
+- Tier-3+ data centers
+
+## Contact
+
+- **Phone:**    +91-99301-81363, +91-95942-67666, 022-35131125
+- **Email:**    info@algoritham.in
+- **Office:**   1102, 11th Floor, Chandak Chamber, Western Express Highway, Andheri East, Mumbai 400069
+- **Hours:**    24/7 for managed-service clients · Mon–Sat 9am–7pm for new enquiries
+
+## Documentation
+
+- [Services](https://algoritham.com/services)
+- [Industries served](https://algoritham.com/industries)
+- [Case studies](https://algoritham.com/case-studies)
+- [About us](https://algoritham.com/about)
+- [Contact](https://algoritham.com/contact)
+
+## Common questions
+
+- **Where is Algoritham located?** Mumbai (Andheri East), India. Service coverage spans 8 metros with carrier circuits in 40+ Indian cities.
+- **What is included in managed IT services?** 24/7 NOC monitoring, infrastructure management (servers, network, storage), cloud operations, security operations, telecom carrier management, and ITIL-aligned incident/change management.
+- **What partnerships does Algoritham hold?** Authorized partner of Microsoft, Cisco, Fortinet, Dell EMC, HP Enterprise, VMware, AWS, and IBM.
+- **What certifications does Algoritham hold?** ISO 9001 (since 2011), ITIL Framework, Fortinet Authorized, Microsoft Partner, HPE Partner, Dell Technologies Partner.
