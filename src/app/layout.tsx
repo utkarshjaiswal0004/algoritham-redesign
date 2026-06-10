@@ -48,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const site = await siteSettings();
   return (
-    <html lang="en-IN" className={`${inter.variable} dark`} suppressHydrationWarning>
+    <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
       <head>
         <OrganizationSchema site={site} />
       </head>

@@ -6,6 +6,12 @@ export default defineType({
   type: "document",
   fields: [
     defineField({ name: "order",     type: "number" }),
+    defineField({ name: "category",  type: "string",
+      options: { list: [
+        { title: "Facility & Hardware", value: "facility" },
+        { title: "Operations & Workloads", value: "operations" },
+      ] },
+      initialValue: "facility" }),
     defineField({ name: "icon",      type: "string" }),
     defineField({ name: "title",     type: "string", validation: (R) => R.required() }),
     defineField({ name: "desc",      type: "text",   rows: 2 }),

@@ -70,13 +70,24 @@ export function Hero({ home, uptimeSLA }: Props) {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.1 }}
-          className="text-5xl sm:text-6xl lg:text-7xl font-black text-[var(--text-1)] tracking-tight leading-[1.05] mb-6 w-full"
+          className="text-5xl sm:text-6xl lg:text-7xl font-black text-[var(--text-1)] tracking-tight leading-[1.05] mb-4 w-full"
         >
           {home.heroHeadlinePre}{" "}
           <span className="brand-gradient animate-gradient">{home.heroHeadlineGradient}</span>
           <br />
           {home.heroHeadlinePost}
         </motion.h1>
+
+        {home.heroBrandLine && (
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.18 }}
+            className="text-[var(--text-3)] text-xs sm:text-sm font-semibold tracking-wide uppercase mb-8"
+          >
+            <span className="brand-gradient">{home.heroBrandLine}</span>
+          </motion.p>
+        )}
 
         {home.heroSubhead && (
           <motion.p

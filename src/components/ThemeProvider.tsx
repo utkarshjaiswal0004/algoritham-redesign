@@ -4,13 +4,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 type Theme = "dark" | "light";
 
 const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({
-  theme: "dark",
+  theme: "light",
   toggle: () => {},
 });
 
 function readStoredTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
-  return (localStorage.getItem("theme") as Theme | null) ?? "dark";
+  if (typeof window === "undefined") return "light";
+  return (localStorage.getItem("theme") as Theme | null) ?? "light";
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {

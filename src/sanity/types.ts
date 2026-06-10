@@ -79,6 +79,7 @@ export type Home = {
   heroHeadlinePre?:      string;
   heroHeadlineGradient?: string;
   heroHeadlinePost?:     string;
+  heroBrandLine?: string;
   heroSubhead?: string;
   heroPrimaryCta?:   Cta;
   heroSecondaryCta?: Cta;
@@ -234,6 +235,7 @@ export type HowItWorksStep = {
 
 export type InfrastructureFeature = {
   _id?: string;
+  category?: "facility" | "operations";
   icon?: string;
   title: string;
   desc?: string;

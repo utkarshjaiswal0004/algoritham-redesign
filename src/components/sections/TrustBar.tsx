@@ -59,16 +59,18 @@ export function TrustBar({ heading, partners, clients, site }: Props) {
           <AnimatedTooltip items={partnerLogos} />
         </div>
 
+        {/* Ticker — duration scales with the number of clients so 50+ stays
+            readable. Each name gets ~1.2s of on-screen time. */}
         <div className="relative overflow-hidden mb-12">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[var(--bg-card)] to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[var(--bg-card)] to-transparent z-10" />
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-            className="flex gap-14 whitespace-nowrap"
+            transition={{ duration: Math.max(30, tickerNames.length * 1.2), repeat: Infinity, ease: "linear" }}
+            className="flex gap-10 whitespace-nowrap"
           >
             {[...tickerNames, ...tickerNames].map((c, i) => (
-              <span key={i} className="text-[var(--text-3)] font-semibold text-sm tracking-wide">{c}</span>
+              <span key={i} className="text-[var(--text-3)] font-semibold text-sm tracking-wide shrink-0">{c}</span>
             ))}
           </motion.div>
         </div>

@@ -3,14 +3,20 @@ import { motion } from "framer-motion";
 import { Target, Eye, Compass, Sparkles } from "lucide-react";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { EvervaultCard } from "@/components/ui/evervault-card";
+import { BackgroundBeams } from "@/components/ui/background-beams";
+import { Meteors } from "@/components/ui/meteors";
+import { Spotlight } from "@/components/ui/spotlight";
+import { BentoGrid, BentoItem } from "@/components/ui/bento-grid";
 import { iconFor } from "@/lib/icon-map";
 import type { MissionVisionPage } from "@/sanity/types";
 
 export function MissionVisionView({ page }: { page: MissionVisionPage }) {
   return (
     <>
-      {/* Hero */}
-      <section className="relative py-24 px-6 overflow-hidden">
+      {/* Hero — Spotlight + meteors for atmospheric depth */}
+      <section className="relative py-24 px-6 overflow-hidden min-h-[60vh] flex items-center">
+        <Spotlight className="-top-20 left-1/2 -translate-x-1/2 h-[60vh] w-[80vw]" fill="#7c3aed" />
+        <Meteors number={12} />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(124,58,237,0.10),transparent)]" />
         <div className="absolute inset-0 opacity-30 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000,transparent_85%)]"
           style={{
@@ -79,8 +85,9 @@ export function MissionVisionView({ page }: { page: MissionVisionPage }) {
         </div>
       </section>
 
-      {/* Vision */}
-      <section className="relative py-24 px-6 overflow-hidden">
+      {/* Vision — BackgroundBeams immersive */}
+      <section className="relative py-32 px-6 overflow-hidden bg-[var(--bg-base)]">
+        <BackgroundBeams className="opacity-50" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(6,182,212,0.10),transparent)]" />
         <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-xs font-semibold text-[var(--accent-cyan)] uppercase tracking-widest mb-4 inline-flex items-center gap-2 justify-center">
@@ -106,7 +113,7 @@ export function MissionVisionView({ page }: { page: MissionVisionPage }) {
         </div>
       </section>
 
-      {/* Principles */}
+      {/* Principles — BentoGrid layout for visual variety */}
       <section className="py-24 px-6 bg-[var(--bg-card)] border-t border-[var(--border)]">
         <div className="max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
@@ -116,24 +123,32 @@ export function MissionVisionView({ page }: { page: MissionVisionPage }) {
             <h2 className="text-4xl md:text-5xl font-black text-[var(--text-1)] tracking-tight">{page.principlesHeadline}</h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <BentoGrid>
             {(page.principles ?? []).map((p, i) => {
               const Icon = iconFor(p.icon, Compass);
+              // Make the first principle a 2x1 wide card for visual hierarchy.
+              const span = (i === 0 ? "2x1" : "1x1") as "2x1" | "1x1";
               return (
-                <motion.div key={p.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
-                  <CardSpotlight className="rounded-2xl bg-[var(--bg-base)] border border-[var(--border)] hover:border-violet-500/25 transition-all duration-300 h-full" radius={320}>
-                    <div className="p-6 h-full">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7c3aed]/15 to-[#06b6d4]/15 flex items-center justify-center mb-4">
-                        <Icon size={18} className="text-violet-500" />
-                      </div>
-                      <h3 className="text-[var(--text-1)] font-bold mb-2">{p.title}</h3>
-                      <p className="text-[var(--text-2)] text-sm leading-relaxed">{p.desc}</p>
+                <BentoItem key={p.title} span={span} className="bg-[var(--bg-base)]">
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.07 }}
+                    className="p-6 h-full flex flex-col"
+                  >
+                    {/* Hover gradient sweep on top edge */}
+                    <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-r from-transparent via-[var(--brand-purple)] to-transparent" />
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#7c3aed]/15 to-[#06b6d4]/15 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-[-4deg] transition-transform duration-300">
+                      <Icon size={20} className="text-violet-500" />
                     </div>
-                  </CardSpotlight>
-                </motion.div>
+                    <h3 className="text-[var(--text-1)] font-bold text-lg mb-2">{p.title}</h3>
+                    <p className="text-[var(--text-2)] text-sm leading-relaxed flex-1">{p.desc}</p>
+                  </motion.div>
+                </BentoItem>
               );
             })}
-          </div>
+          </BentoGrid>
         </div>
       </section>
     </>

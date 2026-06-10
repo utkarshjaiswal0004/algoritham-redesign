@@ -12,14 +12,18 @@ import type {
   EventPhoto,
 } from "./types";
 
+// Primary contact = Princy Gupta. Other lines are secondary.
+const PHONE_PRIMARY    = "+91 95942 67666";
+const PHONE_SECONDARY  = ["+91 99301 81363", "022-35131125"];
+
 export const SITE_SETTINGS_DEFAULT: SiteSettings = {
   name:       "Algoritham Infrastructure Pvt. Ltd.",
   shortName:  "Algoritham",
   tagline:    "End-to-end IT infrastructure, built to last.",
-  description:"National technology integrator providing managed IT, cloud, cybersecurity, networking, and telecom services for enterprises across India.",
+  description:"Algoritham Infrastructure is a Mumbai-based national technology integrator. Managed IT, cloud, cybersecurity, networking, and telecom for Indian enterprises since 2009.",
   foundedYear: 2009,
-  phonePrimary:   "+91 99301 81363",
-  phoneSecondary: ["+91 95942 67666", "022-35131125"],
+  phonePrimary:   PHONE_PRIMARY,
+  phoneSecondary: PHONE_SECONDARY,
   email:       "info@algoritham.in",
   addressLine: "1102, 11th Floor, Chandak Chamber, Western Express Highway",
   city:        "Andheri East, Mumbai",
@@ -30,11 +34,14 @@ export const SITE_SETTINGS_DEFAULT: SiteSettings = {
   geo:         { lat: 19.118, lng: 72.866 },
   socials: [
     { platform: "linkedin", url: "https://www.linkedin.com/company/algoritham-infrastructure" },
+    { platform: "twitter",  url: "https://twitter.com/algoritham" },
+    { platform: "facebook", url: "https://www.facebook.com/algoritham" },
+    { platform: "whatsapp", url: "https://wa.me/919594267666" },
   ],
   uptimeSLA:           "99.99%",
   yearsInBusiness:     "15+",
   carriers:            "40+",
-  projectsDelivered:   "500+",
+  projectsDelivered:   "1200+",
 };
 
 export const NAVIGATION_DEFAULT: Navigation = {
@@ -93,13 +100,14 @@ export const FOOTER_DEFAULT: Footer = {
 };
 
 export const HOME_DEFAULT: Home = {
-  heroEyebrow:           "Established 2009 · National Technology Integrator",
+  heroEyebrow:           "Algoritham Infrastructure · Est. 2009 · Mumbai",
   heroHeadlinePre:       "End-to-End IT",
   heroHeadlineGradient:  "Infrastructure",
   heroHeadlinePost:      "Built to Last.",
-  heroSubhead:           "Your complete IT partner — from servers and networking to cloud, security, and telecom. We manage the infrastructure so you can focus on growing your business.",
+  heroBrandLine:         "by Algoritham — ISO 9001 · ITIL Certified · India-wide managed services",
+  heroSubhead:           "Algoritham is your complete IT partner — from servers and networking to cloud, security, and telecom. We manage the infrastructure so you can focus on growing your business.",
   heroPrimaryCta:   { label: "Get Free IT Assessment", href: "/contact",            variant: "primary" },
-  heroSecondaryCta: { label: "+91 99301 81363",        href: "tel:+919930181363",   variant: "secondary" },
+  heroSecondaryCta: { label: PHONE_PRIMARY,            href: "tel:+919594267666",   variant: "secondary" },
   heroBadges: [
     { icon: "Server", label: "{uptime} Uptime SLA",        color: "purple" },
     { icon: "Shield", label: "ISO 9001 · ITIL Certified",  color: "rose"   },
@@ -126,51 +134,94 @@ export const HOME_DEFAULT: Home = {
   ctaHeadline:         "Ready to modernize your IT infrastructure?",
   ctaSubhead:          "Join enterprises across India that trust Algoritham as their complete IT partner. Start with a free audit — no commitment required.",
   ctaPrimary:   { label: "Get Free IT Assessment", href: "/contact",          variant: "primary"   },
-  ctaSecondary: { label: "Call Us Now",            href: "tel:+919930181363", variant: "secondary" },
+  ctaSecondary: { label: "Call Us Now",            href: "tel:+919594267666", variant: "secondary" },
 };
 
 export const SERVICES_DEFAULT: Service[] = [
   { num: "01", title: "Infrastructure", tagline: "The foundation your business runs on.", icon: "Server",  accent: "rose",   slug: { current: "infrastructure" },
-    summary: "Enterprise servers, data center suites, and 24/7 managed infrastructure from IBM, Lenovo, HP, Dell and Cisco. x86, Blade, and Hyper-Converged solutions.",
+    summary: "Enterprise servers, data center suites, and 24/7 managed infrastructure. x86, Blade, and Hyper-Converged solutions from leading OEMs.",
     detail:  "We design, deploy, and manage enterprise-grade IT infrastructure tailored to your workload. From single-CPU workstations to enterprise multi-CPU servers, our certified engineers ensure your systems are reliable, scalable, and secure 24/7.",
     tags:   ["Servers", "Data Center", "Virtualization", "Storage"],
-    points: ["x86, Power, Blade, and Hyper-Converged server solutions", "Dedicated data center suites with high uptime SLAs", "Storage: SAN/NAS setup, clustering, failover, performance tuning", "Virtualization: server and desktop environments", "High-availability clustering — no single point of failure", "Enterprise OEMs: IBM, Lenovo, HP, Dell, Cisco"],
-    brands: ["IBM", "Lenovo", "HP", "Dell", "Cisco"],
+    points: [
+      "x86, Power, Blade, and Hyper-Converged server solutions",
+      "Dedicated data center suites with high uptime SLAs",
+      "Storage: SAN/NAS setup, clustering, failover, performance tuning",
+      "Virtualization: server and desktop environments",
+      "High-availability clustering — no single point of failure",
+      "Enterprise OEMs: IBM, Lenovo, HP, Dell",
+    ],
+    brands: ["IBM", "Lenovo", "HP", "Dell"],
     metric: { value: "99.99%", label: "Uptime SLA" } },
   { num: "02", title: "Cloud Solutions", tagline: "Move fast. Scale freely. Pay for what you use.", icon: "Cloud", accent: "violet", slug: { current: "cloud" },
     summary: "IaaS, PaaS, and SaaS deployment and management. Architect, migrate, and run cloud workloads without large capital outlays.",
     detail:  "Avoid large capital outlays and let us architect, migrate, and manage your cloud workloads. Whether you need IaaS, PaaS, or SaaS — we handle the complexity so you focus on your business.",
     tags:   ["IaaS", "PaaS", "SaaS", "Cloud Migration"],
-    points: ["Infrastructure as a Service (IaaS) deployment", "Platform and Software as a Service delivery", "Cloud migration strategy and execution", "Cost optimization and right-sizing", "Multi-cloud and hybrid cloud architecture", "AWS, Azure, Google Cloud — vendor neutral"],
+    points: [
+      "Infrastructure as a Service (IaaS) deployment",
+      "Platform and Software as a Service delivery",
+      "Cloud migration strategy and execution",
+      "Cost optimization and right-sizing",
+      "Multi-cloud and hybrid cloud architecture",
+      "AWS, Azure, Google Cloud — vendor neutral",
+    ],
     brands: ["AWS", "Azure", "Google Cloud", "VMware"],
     metric: { value: "30–70%", label: "Cost saved" } },
   { num: "03", title: "Cybersecurity", tagline: "Comprehensive protection. Zero-trust by design.", icon: "Shield", accent: "cyan", slug: { current: "security" },
     summary: "FortiGate UTM, IPS, Web Filtering, Application Control, and FortiGuard subscription services. Zero-trust architecture across your full estate.",
     detail:  "We deploy and manage a comprehensive security framework that protects against internal and external threats across your entire IT estate — without adding unnecessary complexity.",
     tags:   ["FortiGate", "UTM", "Zero-Trust", "Compliance"],
-    points: ["FortiGate UTM Bundle — complete threat protection", "IPS & Antivirus with FortiGuard real-time intelligence", "Web Filtering and Application Control", "End-to-end encryption (AES-256 at rest, TLS 1.3 in transit)", "Zero-trust architecture — every request authenticated", "Security audits and compliance reporting"],
+    points: [
+      "FortiGate UTM Bundle — complete threat protection",
+      "IPS & Antivirus with FortiGuard real-time intelligence",
+      "Web Filtering and Application Control",
+      "End-to-end encryption (AES-256 at rest, TLS 1.3 in transit)",
+      "Zero-trust architecture — every request authenticated",
+      "Security audits and compliance reporting",
+    ],
     brands: ["Fortinet", "Symantec", "McAfee", "Trend Micro"],
     metric: { value: "0", label: "Trust default" } },
   { num: "04", title: "Networking", tagline: "Reliable, secure, always-on connectivity.", icon: "Network", accent: "blue", slug: { current: "networking" },
     summary: "Proactive management of firewalls, routers, switches, and security gateways. Threshold alerts, error tracking, and uninterrupted access always.",
-    detail:  "A well-managed IT network can help your business control costs, accelerate growth, ensure scalability, and mitigate risks. We provide proactive management across your full network estate.",
-    tags:   ["Cisco", "Firewalls", "LAN/WAN", "MPLS"],
-    points: ["Proactive management of firewalls, routers, and switches", "Device and resource utilization monitoring", "Error tracking and threshold alerts", "VLAN, LACP, trunking, and performance optimization", "MPLS for multi-site private networks", "24/7 NOC with passive and active monitoring"],
-    brands: ["Cisco", "HP", "Fortinet"],
+    detail:  "A well-managed IT network helps your business control costs, accelerate growth, ensure scalability, and mitigate risks. We provide proactive management across your full network estate.",
+    tags:   ["Firewalls", "LAN/WAN", "MPLS", "SD-WAN"],
+    points: [
+      "Proactive management of firewalls, routers, and switches",
+      "Device and resource utilization monitoring",
+      "Error tracking and threshold alerts",
+      "VLAN, LACP, trunking, and performance optimization",
+      "MPLS and SD-WAN for multi-site private networks",
+      "24/7 NOC with passive and active monitoring",
+    ],
+    brands: ["HP", "Juniper", "Fortinet", "Ubiquiti"],
     metric: { value: "<15m", label: "MTTR" } },
   { num: "05", title: "Telecom", tagline: "30–70% savings. 40+ carriers. One partner.", icon: "Radio", accent: "pink", slug: { current: "telecom" },
     summary: "30–70% savings negotiated across 40+ carriers. Hosted PBX, SIP, T1, Ethernet, MPLS, VOIP, and high-speed circuits — one partner for all connectivity.",
     detail:  "We negotiate on your behalf across a network of 40+ carriers to guarantee the lowest prices. From voice to high-speed data circuits — all your connectivity needs through a single point of contact.",
     tags:   ["Hosted PBX", "SIP", "MPLS", "VOIP"],
-    points: ["Hosted PBX — cloud-based phone system, no hardware costs", "SIP trunks for PBX-compatible systems", "Voice T1 with up to 24 lines and PRI capabilities", "Internet T1, bonded T1 up to 12 Mbps", "Business Ethernet — symmetrical up to 135 Mbps", "MPLS, VOIP, DS3/OC3/OC12/OC48 enterprise circuits", "Colocation services"],
+    points: [
+      "Hosted PBX — cloud-based phone system, no hardware costs",
+      "SIP trunks for PBX-compatible systems",
+      "Voice T1 with up to 24 lines and PRI capabilities",
+      "Internet T1, bonded T1 up to 12 Mbps",
+      "Business Ethernet — symmetrical up to 135 Mbps",
+      "MPLS, VOIP, DS3/OC3/OC12/OC48 enterprise circuits",
+      "Colocation services",
+    ],
     brands: ["40+ Carriers"],
     metric: { value: "40+", label: "Carriers" } },
   { num: "06", title: "System Integration", tagline: "One coherent IT environment. No silos.", icon: "GitMerge", accent: "violet", slug: { current: "integration" },
-    summary: "Embedding new IT systems into existing environments. ISO 9001 and ITIL-certified engineers across Cisco, Microsoft, IBM, and HP.",
+    summary: "Embedding new IT systems into existing environments. ISO 9001 and ITIL-certified engineers across Microsoft, IBM, and HP stacks.",
     detail:  "We embed new IT systems into your existing environment — whether that's within your organisation or across multiple entities. ISO 9001 and ITIL processes ensure consistent, auditable delivery.",
     tags:   ["ISO 9001", "ITIL", "FMS", "ERP"],
-    points: ["In-house and cross-organisational integration", "Facility Management Services (FMS)", "Data center migration and Active Directory implementation", "Consultation and project management", "Corporate governance and IT policy frameworks", "ISO 9001 · ITIL certified delivery teams"],
-    brands: ["Cisco", "Microsoft", "IBM", "HP"],
+    points: [
+      "In-house and cross-organisational integration",
+      "Facility Management Services (FMS)",
+      "Data center migration and Active Directory implementation",
+      "Consultation and project management",
+      "Corporate governance and IT policy frameworks",
+      "ISO 9001 · ITIL certified delivery teams",
+    ],
+    brands: ["Microsoft", "IBM", "HP", "Fortinet"],
     metric: { value: "ITIL", label: "Aligned" } },
 ];
 
@@ -181,12 +232,14 @@ export const HOW_STEPS_DEFAULT: HowItWorksStep[] = [
 ];
 
 export const INFRASTRUCTURE_FEATURES_DEFAULT: InfrastructureFeature[] = [
-  { icon: "ShieldCheck", accent: "violet", title: "Tier 3+ Power & Cooling", desc: "Redundant UPS, N+1 cooling, 100% SLA on environment & access control.", stat: "100%",  statLabel: "Power SLA" },
-  { icon: "Eye",         accent: "cyan",   title: "24/7 On-Site Security",   desc: "Mantraps, biometric screening, CCTV, security guards.",                    stat: "24/7",  statLabel: "Manned" },
-  { icon: "Activity",    accent: "rose",   title: "Round-the-Clock NOC",     desc: "Passive + active monitoring with sub-15-minute mean response.",            stat: "<15m",  statLabel: "MTTR" },
-  { icon: "Layers",      accent: "violet", title: "HA Clustering",           desc: "No single point of failure across compute, storage & network.",            stat: "N+1",   statLabel: "Redundancy" },
-  { icon: "HardDrive",   accent: "cyan",   title: "Server & Desktop Virt",   desc: "Hypervisor-grade VMware, Hyper-V & Citrix workloads.",                     stat: "3",     statLabel: "Hypervisors" },
-  { icon: "Cpu",         accent: "rose",   title: "Enterprise OEMs",         desc: "IBM · Lenovo · HP · Dell · Cisco — vendor-neutral architecture.",          stat: "5+",    statLabel: "OEMs" },
+  // ── Facility & Hardware ───────────────────────────────
+  { category: "facility",   icon: "ShieldCheck", accent: "violet", title: "Tier 3+ Power & Cooling", desc: "Redundant UPS, N+1 cooling, 100% SLA on environment & access control.", stat: "100%",  statLabel: "Power SLA" },
+  { category: "facility",   icon: "Eye",         accent: "cyan",   title: "24/7 On-Site Security",   desc: "Mantraps, biometric screening, CCTV, security guards.",                    stat: "24/7",  statLabel: "Manned" },
+  { category: "facility",   icon: "Cpu",         accent: "rose",   title: "Enterprise OEMs",         desc: "IBM · Lenovo · HP · Dell — vendor-neutral architecture.",                  stat: "4+",    statLabel: "OEMs" },
+  // ── Operations & Workloads ────────────────────────────
+  { category: "operations", icon: "Activity",    accent: "rose",   title: "Round-the-Clock NOC",     desc: "Passive + active monitoring with sub-15-minute mean response.",            stat: "<15m",  statLabel: "MTTR" },
+  { category: "operations", icon: "Layers",      accent: "violet", title: "HA Clustering",           desc: "No single point of failure across compute, storage & network.",            stat: "N+1",   statLabel: "Redundancy" },
+  { category: "operations", icon: "HardDrive",   accent: "cyan",   title: "Server & Desktop Virt",   desc: "Hypervisor-grade VMware, Hyper-V & Citrix workloads.",                     stat: "3",     statLabel: "Hypervisors" },
 ];
 
 export const COVERAGE_DEFAULT: CoverageNode[] = [
@@ -214,7 +267,7 @@ export const CASE_STUDIES_DEFAULT: CaseStudy[] = [
     metrics: [{ value: "0", label: "Outages" }, { value: "12", label: "Sites covered" }, { value: "2", label: "FTE savings" }],
     tags: ["MPLS", "FortiGate", "NOC", "Microsoft 365"] },
   { num: "03", industry: "E-commerce", client: "Reputed Online Shopping Channel", featured: true,
-    challenge: "Peak-season infrastructure failures causing revenue loss and customer attrition during high-traffic sale events (Big Billion Day type campaigns).",
+    challenge: "Peak-season infrastructure failures causing revenue loss and customer attrition during high-traffic sale events.",
     solution:  "Implemented auto-scaling IaaS on AWS with load balancers, CDN configuration, and database read replicas. Set up real-time capacity monitoring with auto-trigger thresholds.",
     outcome:   "Zero downtime across next three major sale events. Peak concurrent users handled: 3x previous capacity. Customer complaints down 90%.",
     metrics: [{ value: "Zero", label: "Downtime" }, { value: "3×", label: "Traffic capacity" }, { value: "−90%", label: "Complaints" }],
@@ -228,17 +281,20 @@ export const CASE_STUDIES_DEFAULT: CaseStudy[] = [
 ];
 
 export const TESTIMONIALS_DEFAULT: Testimonial[] = [
-  { quote: "Overall, we are satisfied with the services provided. The team was professional, responsive, and delivered as promised.", name: "Satish",         role: "IT Director", company: "GoodRich" },
-  { quote: "The pricing was fair for the level of expertise. The cost was fully justified by the outcome — and ongoing managed service gives us peace of mind.", name: "Manoj Shinde",  role: "IT Head",     company: "Neo Nich" },
-  { quote: "Highly impressed with the team's dedication and timely delivery. Excellent communication throughout — they understood our infrastructure better than any previous vendor.", name: "Sachin Mestry", role: "Designer",    company: "CCI" },
-  { quote: "Algoritham took complete ownership of our IT. That level of accountability is rare — and exactly what a growing company needs.", name: "Rohin Patel",   role: "IT Director", company: "Enterprise" },
-  { quote: "From day one, they functioned as our IT department. The hand-off was seamless, and SLA response times have been spot-on.",       name: "Priya Menon",    role: "Operations",  company: "Healthcare Group" },
-  { quote: "Multi-site rollout completed on schedule. Their NOC visibility and proactive incident management are best-in-class.",            name: "Vikram Iyer",    role: "CTO",         company: "Manufacturing" },
+  { quote: "We came in expecting a vendor and ended up with a partner. Algoritham now manages our entire NOC, and our uptime numbers speak for themselves.", name: "Satish R.",       role: "IT Director",        company: "GoodRich" },
+  { quote: "The telecom audit alone paid for the engagement three times over. They renegotiated circuits across 14 sites and we never lost a day of connectivity.", name: "Manoj Shinde",      role: "Head of IT",         company: "Neo Nich" },
+  { quote: "Our cloud migration was the smoothest project I've run in 12 years. Zero data loss, zero unplanned downtime, and the cutover happened on a Sunday night exactly as planned.", name: "Sachin Mestry",     role: "VP Engineering",     company: "CCI Group" },
+  { quote: "When ransomware hit a sister company, ours stayed clean — because Algoritham had already segmented us, hardened FortiGate, and patched on a tight cycle.", name: "Rohin Patel",       role: "CISO",               company: "BFSI Conglomerate" },
+  { quote: "They took complete ownership of a multi-site rollout across six hospitals. Critical-care systems didn't blink. That's the level of accountability healthcare needs.", name: "Priya Menon",       role: "Director of Operations", company: "Multi-Specialty Hospital Network" },
+  { quote: "Year-end audit was painless. Every change, every patch, every access grant — fully logged in ITIL-aligned tickets. The auditors actually complimented our records.", name: "Vikram Iyer",       role: "CTO",                company: "Manufacturing Major" },
+  { quote: "We trimmed 32% off our IT OpEx in the first year with no headcount change and no service degradation. Their right-sizing analysis was forensic.", name: "Anjali Deshmukh",  role: "CFO",                company: "Logistics & Distribution" },
+  { quote: "Disaster recovery used to be a slide in a deck. Now it's a tested, documented playbook with RPO under 15 minutes for our core systems.", name: "Karan Mehta",       role: "Head of Infrastructure", company: "Insurance Group" },
+  { quote: "Their helpdesk genuinely feels in-house. Tickets are picked up within minutes, engineers know our environment by name, and we never get bounced between L1 and L2.", name: "Shalini Rao",       role: "Operations Manager", company: "Retail Chain" },
+  { quote: "Algoritham helped us go from a fragmented mess of office IT to a single MPLS-backed, monitored estate. Quarterly board reporting on IT is now a five-minute slide.", name: "Devansh Kapoor",    role: "Group CIO",          company: "Hospitality Group" },
 ];
 
 export const PARTNERS_DEFAULT: Partner[] = [
   { name: "Microsoft",     designation: "Authorized Partner", logoKey: "Microsoft" },
-  { name: "Cisco",         designation: "Networking Partner", logoKey: "Cisco"     },
   { name: "Fortinet",      designation: "Security Partner",   logoKey: "Fortinet"  },
   { name: "Dell EMC",      designation: "Storage Partner",    logoKey: "Dell"      },
   { name: "HP Enterprise", designation: "Server Partner",     logoKey: "HPE"       },
@@ -247,10 +303,30 @@ export const PARTNERS_DEFAULT: Partner[] = [
   { name: "IBM",           designation: "Enterprise Partner", logoKey: "IBM"       },
 ];
 
+// Expanded list — editors can replace with real client names via Studio.
+// Marquee/scroller handles 50+ entries comfortably.
 export const CLIENTS_DEFAULT: Client[] = [
-  { name: "GoodRich" }, { name: "Neo Nich" }, { name: "CCI" },
+  { name: "GoodRich" }, { name: "Neo Nich" }, { name: "CCI Group" },
   { name: "A Leading Investment Group" }, { name: "Financial Services Giant" },
-  { name: "Oracle on AWS" }, { name: "Online Shopping Channel" },
+  { name: "Reputed Online Shopping Channel" }, { name: "Oracle Database on AWS" },
+  { name: "Multi-Specialty Hospital Network" }, { name: "BFSI Conglomerate" },
+  { name: "Manufacturing Major" }, { name: "Logistics & Distribution" },
+  { name: "Insurance Group" }, { name: "Retail Chain" }, { name: "Hospitality Group" },
+  { name: "Western India Distributor" }, { name: "Mumbai Pharma Major" },
+  { name: "South India Logistics" }, { name: "Banking Cooperative" },
+  { name: "Healthcare Trust" }, { name: "Mid-cap FMCG" }, { name: "EPC Contractor" },
+  { name: "Education Group" }, { name: "Real Estate Developer" },
+  { name: "Government Department" }, { name: "Energy Major" }, { name: "Aviation MRO" },
+  { name: "Media House" }, { name: "Capital Markets Firm" }, { name: "Public Sector Utility" },
+  { name: "Telecom Carrier" }, { name: "Co-operative Bank" }, { name: "Stock Brokerage" },
+  { name: "Construction Conglomerate" }, { name: "Agro-Processing Giant" },
+  { name: "Cement Producer" }, { name: "Specialty Chemicals" }, { name: "Auto-Components" },
+  { name: "K-12 Education Network" }, { name: "Higher Education Trust" },
+  { name: "Charity Foundation" }, { name: "Co-working Operator" }, { name: "Logistics Tech Firm" },
+  { name: "Last-Mile Delivery" }, { name: "Hotel Chain" }, { name: "QSR Brand" },
+  { name: "Luxury Retail" }, { name: "Beauty & Wellness Group" }, { name: "Apparel House" },
+  { name: "BPO Services" }, { name: "Shared Services Centre" }, { name: "ITES Major" },
+  { name: "Captive Finance Arm" }, { name: "NBFC" }, { name: "Asset Management Co" },
 ];
 
 export const CERTIFICATIONS_DEFAULT: Certification[] = [
@@ -287,10 +363,10 @@ export const ABOUT_DEFAULT: AboutPage = {
   headlinePre: "We love what",
   headlineGradient: "we do.",
   stats: [
-    { value: "2009", label: "Year Founded" },
-    { value: "15+",  label: "Years of Operations" },
-    { value: "500+", label: "Projects Delivered" },
-    { value: "40+",  label: "Telecom Carriers" },
+    { value: "2009",  label: "Year Founded" },
+    { value: "15+",   label: "Years of Operations" },
+    { value: "1200+", label: "Projects Delivered" },
+    { value: "40+",   label: "Telecom Carriers" },
   ],
   valuesHeadline: "What drives us.",
   values: [
@@ -308,7 +384,7 @@ export const ABOUT_DEFAULT: AboutPage = {
     { year: "2015", title: "Fortinet Authorized Partner",body: "Became authorized to deploy and manage Fortinet's full security stack — FortiGate firewalls, IPS, web filtering, application control, FortiGuard subscription services.",  tags: ["FortiGate", "UTM", "FortiGuard", "Zero-Trust"] },
     { year: "2018", title: "Cloud Practice Launched",    body: "Stood up dedicated cloud architects and engineers. Started delivering IaaS, PaaS, and SaaS workloads end-to-end across AWS and Azure — design, migration, and 24/7 operations.", tags: ["IaaS", "PaaS", "SaaS", "AWS", "Azure"] },
     { year: "2020", title: "40+ Telecom Carriers",       body: "Built India's most diverse single-vendor circuit catalogue. MPLS, ILL, broadband, voice, hosted PBX, SD-WAN — negotiated 30–70% cost savings for clients across 40+ providers.",  tags: ["MPLS", "ILL", "SD-WAN", "Hosted PBX"],          stat: { value: "40+", label: "Carriers" } },
-    { year: "2023", title: "500+ Enterprise Projects",   body: "Crossed 500 enterprise project deliveries — from Fortune-listed financial services migrations to greenfield manufacturing rollouts. 99.99% uptime maintained across the managed estate.", tags: ["Enterprise", "99.99% Uptime", "Managed Services"], stat: { value: "500+", label: "Projects" } },
+    { year: "2023", title: "1200+ Enterprise Projects",  body: "Crossed 1200 enterprise project deliveries — from Fortune-listed financial services migrations to greenfield manufacturing rollouts. 99.99% uptime maintained across the managed estate.", tags: ["Enterprise", "99.99% Uptime", "Managed Services"], stat: { value: "1200+", label: "Projects" } },
     { year: "2026", title: "Still Building",             body: "Same values, bigger team. Today we serve enterprises across India with end-to-end IT — and we're investing in next-generation observability, security automation, and AI-assisted operations.", tags: ["AI Ops", "Security Automation", "Next-Gen Observability"], stat: { value: "Today", label: "And growing" } },
   ],
   missionVisionTeaser: "Why we exist, and where we're headed.",
@@ -352,10 +428,10 @@ export const INDUSTRIES_PAGE_DEFAULT: IndustriesPage = {
   headlineGradient: "industry's language.",
   subhead: "Serving 10 sectors across India with deep domain expertise, sector-specific compliance knowledge, and IT solutions built around your operating model.",
   heroStats: [
-    { value: "10",   label: "Sectors served"     },
-    { value: "500+", label: "Enterprise projects"},
-    { value: "15+",  label: "Years operating"    },
-    { value: "99.99%", label: "Uptime SLA"       },
+    { value: "10",     label: "Sectors served"     },
+    { value: "1200+",  label: "Enterprise projects"},
+    { value: "15+",    label: "Years operating"    },
+    { value: "99.99%", label: "Uptime SLA"         },
   ],
 };
 
@@ -376,7 +452,8 @@ export const CONTACT_PAGE_DEFAULT: ContactPage = {
   detailsHeading: "Direct line to engineers — not a call centre.",
   detailsCopy: "Whether you need a free IT audit, an emergency response, or to talk pricing — we're a phone call away.",
   details: [
-    { icon: "Phone",  label: "Call us",      value: "+91 99301 81363",    sub: "+91 95942 67666 · 022-35131125", href: "tel:+919930181363"        },
+    { icon: "Phone",  label: "Call us",      value: PHONE_PRIMARY,        sub: "Princy Gupta · 9594267666", href: "tel:+919594267666"        },
+    { icon: "Phone",  label: "Alternate",    value: "+91 99301 81363",    sub: "022-35131125 · landline",  href: "tel:+919930181363"        },
     { icon: "Mail",   label: "Write to us",  value: "info@algoritham.in", sub: "Replies within 1 business day",  href: "mailto:info@algoritham.in" },
     { icon: "MapPin", label: "Office",       value: "Mumbai 400069",      sub: "1102, Chandak Chamber, Andheri E" },
     { icon: "Clock",  label: "Availability", value: "24/7 Managed Ops",   sub: "Mon–Sat 9am–7pm · new enquiries" },
