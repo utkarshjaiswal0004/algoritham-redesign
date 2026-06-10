@@ -5,6 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { OrganizationSchema } from "@/components/SeoSchema";
+import { siteSettings } from "@/sanity/content";
+import { buildMetadata } from "@/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,80 +14,43 @@ const inter = Inter({
   display: "swap",
 });
 
-const siteUrl = "https://algoritham.com";
+const SITE_URL = "https://algoritham.com";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default:  "Algoritham Infrastructure — End-to-End IT Managed Services in India",
-    template: "%s · Algoritham Infrastructure",
-  },
-  description:
-    "National technology integrator offering managed IT, cloud, cybersecurity, networking, and telecom services for enterprises across India. ISO 9001 · ITIL · Established 2009 · Mumbai HQ.",
-  applicationName: "Algoritham Infrastructure",
-  authors:    [{ name: "Algoritham Infrastructure Pvt. Ltd.", url: siteUrl }],
-  creator:    "Algoritham Infrastructure Pvt. Ltd.",
-  publisher:  "Algoritham Infrastructure Pvt. Ltd.",
-  generator:  "Next.js",
-  keywords: [
-    "IT managed services India", "data center services Mumbai",
-    "Fortinet partner Mumbai", "cloud solutions IaaS PaaS SaaS India",
-    "cybersecurity services India", "enterprise networking",
-    "telecom services India", "system integrator Mumbai",
-    "ISO 9001 IT services", "ITIL managed IT",
-  ],
-  category: "Information Technology Services",
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await siteSettings();
+  const base = buildMetadata({
+    site,
+    fallbackTitle: `${site.shortName ?? "Algoritham"} Infrastructure — End-to-End IT Managed Services in India`,
+    fallbackDescription: site.description ?? "National technology integrator offering managed IT, cloud, cybersecurity, networking, and telecom services for enterprises across India.",
+  });
 
-  alternates: {
-    canonical: "/",
-    languages: { "en-IN": "/" },
-  },
-
-  openGraph: {
-    type: "website",
-    locale: "en_IN",
-    url: siteUrl,
-    siteName: "Algoritham Infrastructure",
-    title:  "Algoritham Infrastructure — End-to-End IT Managed Services in India",
-    description:
-      "Enterprise IT infrastructure, cloud, security, networking, and telecom — managed end-to-end since 2009.",
-    images: [{
-      url: "/logo.png",
-      width: 512,
-      height: 512,
-      alt: "Algoritham Infrastructure logo",
-    }],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Algoritham Infrastructure",
-    description: "End-to-end IT managed services for enterprises across India.",
-    images: ["/logo.png"],
-  },
-
-  robots: {
-    index: true, follow: true,
-    googleBot: {
-      index: true, follow: true,
-      "max-video-preview":   -1,
-      "max-image-preview":   "large",
-      "max-snippet":         -1,
+  return {
+    ...base,
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default:  base.title as string,
+      template: `%s · ${site.shortName ?? "Algoritham"} Infrastructure`,
     },
-  },
+    applicationName: site.name,
+    authors:    [{ name: site.name ?? "Algoritham", url: SITE_URL }],
+    creator:    site.name,
+    publisher:  site.name,
+    generator:  "Next.js",
+    category:   "Information Technology Services",
+    icons: {
+      icon:     [{ url: "/logo.png", type: "image/png" }],
+      shortcut: "/logo.png",
+      apple:    "/logo.png",
+    },
+  };
+}
 
-  icons: {
-    icon:     [{ url: "/logo.png", type: "image/png" }],
-    shortcut: "/logo.png",
-    apple:    "/logo.png",
-  },
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const site = await siteSettings();
   return (
     <html lang="en-IN" className={`${inter.variable} dark`} suppressHydrationWarning>
       <head>
-        <OrganizationSchema />
+        <OrganizationSchema site={site} />
       </head>
       <body className="bg-base text-1">
         <ThemeProvider>{children}</ThemeProvider>

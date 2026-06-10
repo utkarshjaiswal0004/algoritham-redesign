@@ -1,95 +1,90 @@
 import Script from "next/script";
+import type { SiteSettings } from "@/sanity/types";
 
 const SITE = "https://algoritham.com";
 
+const DOW = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 /**
  * JSON-LD blocks for AI search engines (ChatGPT search, Perplexity, Google AI Overviews)
- * and traditional crawlers. Renders @graph so multiple types stay in one document.
+ * and traditional crawlers. Data is pulled from CMS site settings.
  */
-export function OrganizationSchema() {
+export function OrganizationSchema({ site }: { site: SiteSettings }) {
   const data = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type":          "Organization",
-        "@id":            `${SITE}/#organization`,
-        name:             "Algoritham Infrastructure Pvt. Ltd.",
-        alternateName:    "Algoritham",
-        url:              SITE,
-        logo: {
-          "@type":  "ImageObject",
-          url:      `${SITE}/logo.png`,
-          width:    512,
-          height:   512,
-        },
-        foundingDate:     "2009",
-        slogan:           "End-to-end IT infrastructure, built to last.",
-        description:
-          "National technology integrator providing managed IT, cloud, cybersecurity, networking, and telecom services for enterprises across India.",
+        "@type":     "Organization",
+        "@id":       `${SITE}/#organization`,
+        name:        site.name ?? "Algoritham Infrastructure Pvt. Ltd.",
+        alternateName: site.shortName ?? "Algoritham",
+        url:         SITE,
+        logo: { "@type": "ImageObject", url: `${SITE}/logo.png`, width: 512, height: 512 },
+        foundingDate: String(site.foundedYear ?? 2009),
+        slogan:       site.tagline,
+        description:  site.description,
         contactPoint: [{
           "@type":          "ContactPoint",
-          telephone:        "+91-99301-81363",
+          telephone:        site.phonePrimary,
           contactType:      "customer service",
-          email:            "info@algoritham.in",
-          areaServed:       "IN",
+          email:            site.email,
+          areaServed:       site.country ?? "IN",
           availableLanguage:["en", "hi"],
         }],
         address: {
-          "@type":            "PostalAddress",
-          streetAddress:      "1102, 11th Floor, Chandak Chamber, Western Express Highway",
-          addressLocality:    "Andheri East",
-          addressRegion:      "Maharashtra",
-          postalCode:         "400069",
-          addressCountry:     "IN",
+          "@type":         "PostalAddress",
+          streetAddress:   site.addressLine,
+          addressLocality: site.city,
+          addressRegion:   site.region,
+          postalCode:      site.postalCode,
+          addressCountry:  site.country ?? "IN",
         },
-        sameAs: [
-          "https://www.linkedin.com/company/algoritham-infrastructure",
-        ],
+        sameAs: (site.socials ?? []).map(s => s.url),
       },
       {
-        "@type":          "LocalBusiness",
-        "@id":            `${SITE}/#localbusiness`,
-        name:             "Algoritham Infrastructure",
-        image:            `${SITE}/logo.png`,
-        url:              SITE,
-        telephone:        "+91-99301-81363",
-        priceRange:       "$$",
+        "@type": "LocalBusiness",
+        "@id":   `${SITE}/#localbusiness`,
+        name:    site.name ?? "Algoritham Infrastructure",
+        image:   `${SITE}/logo.png`,
+        url:     SITE,
+        telephone:  site.phonePrimary,
+        priceRange: "$$",
         address: {
-          "@type":           "PostalAddress",
-          streetAddress:     "1102, 11th Floor, Chandak Chamber, Western Express Highway",
-          addressLocality:   "Andheri East, Mumbai",
-          addressRegion:     "Maharashtra",
-          postalCode:        "400069",
-          addressCountry:    "IN",
+          "@type":         "PostalAddress",
+          streetAddress:   site.addressLine,
+          addressLocality: site.city,
+          addressRegion:   site.region,
+          postalCode:      site.postalCode,
+          addressCountry:  site.country ?? "IN",
         },
-        geo: {
+        geo: site.geo?.lat && site.geo.lng ? {
           "@type":   "GeoCoordinates",
-          latitude:  19.118,
-          longitude: 72.866,
-        },
+          latitude:  site.geo.lat,
+          longitude: site.geo.lng,
+        } : undefined,
         openingHoursSpecification: [{
-          "@type":     "OpeningHoursSpecification",
-          dayOfWeek:   ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          opens:       "09:00",
-          closes:      "19:00",
+          "@type":   "OpeningHoursSpecification",
+          dayOfWeek: DOW,
+          opens:     "09:00",
+          closes:    "19:00",
         }],
-        areaServed:    { "@type": "Country", name: "India" },
+        areaServed: { "@type": "Country", name: "India" },
       },
       {
         "@type":  "WebSite",
         "@id":    `${SITE}/#website`,
         url:      SITE,
-        name:     "Algoritham Infrastructure",
+        name:     site.shortName ?? "Algoritham Infrastructure",
         publisher:{ "@id": `${SITE}/#organization` },
         inLanguage: "en-IN",
       },
       ...["Infrastructure", "Cloud Solutions", "Cybersecurity", "Networking", "Telecom", "System Integration"]
         .map((service) => ({
-          "@type":         "Service",
-          serviceType:     service,
-          provider:        { "@id": `${SITE}/#organization` },
-          areaServed:      { "@type": "Country", name: "India" },
-          name:            `${service} — Algoritham Infrastructure`,
+          "@type":     "Service",
+          serviceType: service,
+          provider:    { "@id": `${SITE}/#organization` },
+          areaServed:  { "@type": "Country", name: "India" },
+          name:        `${service} — ${site.shortName ?? "Algoritham"}`,
         })),
     ],
   };
@@ -104,7 +99,6 @@ export function OrganizationSchema() {
   );
 }
 
-/** FAQ schema — drop into pages with a real Q&A list */
 export function FaqSchema({ faqs }: { faqs: { q: string; a: string }[] }) {
   const data = {
     "@context": "https://schema.org",
@@ -116,16 +110,11 @@ export function FaqSchema({ faqs }: { faqs: { q: string; a: string }[] }) {
     })),
   };
   return (
-    <Script
-      id="ld-faq"
-      type="application/ld+json"
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    <Script id="ld-faq" type="application/ld+json" strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
   );
 }
 
-/** BreadcrumbList — for inner pages */
 export function BreadcrumbSchema({ items }: { items: { name: string; url: string }[] }) {
   const data = {
     "@context": "https://schema.org",
@@ -138,11 +127,7 @@ export function BreadcrumbSchema({ items }: { items: { name: string; url: string
     })),
   };
   return (
-    <Script
-      id="ld-breadcrumb"
-      type="application/ld+json"
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    <Script id="ld-breadcrumb" type="application/ld+json" strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
   );
 }

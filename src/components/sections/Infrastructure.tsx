@@ -1,53 +1,51 @@
 "use client";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { Activity, Server, ShieldCheck, Cpu, HardDrive, Layers, Zap, Eye, ArrowUpRight } from "lucide-react";
+import { Server, Zap, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { SkeletonMap } from "@/components/ui/skeleton";
-import type { CoverageNode } from "@/components/ui/india-coverage-map";
+import { iconFor } from "@/lib/icon-map";
+import type { CoverageNode as CoverageNodeType, InfrastructureFeature, SiteSettings } from "@/sanity/types";
+import type { CoverageNode as MapCoverageNode } from "@/components/ui/india-coverage-map";
 
-// India map carries ~200KB of path data — lazy-load with skeleton fallback
 const IndiaCoverageMap = dynamic(
   () => import("@/components/ui/india-coverage-map").then(m => m.IndiaCoverageMap),
   { ssr: false, loading: () => <SkeletonMap /> },
 );
 
-const metrics = [
-  { value: 15, suffix: "+", label: "Years operating" },
-  { value: 99, suffix: "%", label: "Uptime SLA" },
-  { value: 40, suffix: "+", label: "Telecom carriers" },
-  { value: 24, suffix: "/7", label: "NOC monitoring" },
-];
+type Props = {
+  site: SiteSettings;
+  features: InfrastructureFeature[];
+  coverage: CoverageNodeType[];
+};
 
-const features = [
-  { icon: ShieldCheck, color: "var(--accent-violet)", title: "Tier 3+ Power & Cooling", desc: "Redundant UPS, N+1 cooling, 100% SLA on environment & access control.", stat: "100%",  statLabel: "Power SLA" },
-  { icon: Eye,         color: "var(--accent-cyan)",   title: "24/7 On-Site Security",     desc: "Mantraps, biometric screening, CCTV, security guards.",                    stat: "24/7",  statLabel: "Manned" },
-  { icon: Activity,    color: "var(--accent-rose)",   title: "Round-the-Clock NOC",       desc: "Passive + active monitoring with sub-15-minute mean response.",            stat: "<15m",  statLabel: "MTTR" },
-  { icon: Layers,      color: "var(--accent-violet)", title: "HA Clustering",             desc: "No single point of failure across compute, storage & network.",            stat: "N+1",   statLabel: "Redundancy" },
-  { icon: HardDrive,   color: "var(--accent-cyan)",   title: "Server & Desktop Virt",     desc: "Hypervisor-grade VMware, Hyper-V & Citrix workloads.",                     stat: "3",     statLabel: "Hypervisors" },
-  { icon: Cpu,         color: "var(--accent-rose)",   title: "Enterprise OEMs",           desc: "IBM · Lenovo · HP · Dell · Cisco — vendor-neutral architecture.",          stat: "5+",    statLabel: "OEMs" },
-];
+const ACCENT_COLOR: Record<NonNullable<InfrastructureFeature["accent"]>, string> = {
+  violet: "var(--accent-violet)",
+  cyan:   "var(--accent-cyan)",
+  rose:   "var(--accent-rose)",
+};
 
-// Coordinates tuned to actual geographic positions on the simplemaps India SVG (1000×1000 viewBox).
-// Mapped via empirical placement against the rendered country outline.
-const coverage: CoverageNode[] = [
-  { city: "Mumbai",     x: 222, y: 595, primary: true, carriers: 12, pop: "HQ + Primary DC" },
-  { city: "Delhi NCR",  x: 370, y: 222,                carriers: 9,  pop: "North hub" },
-  { city: "Bengaluru",  x: 348, y: 778,                carriers: 8,  pop: "Tech corridor" },
-  { city: "Chennai",    x: 432, y: 768,                carriers: 7,  pop: "South coast" },
-  { city: "Pune",       x: 258, y: 615,                carriers: 6,  pop: "West edge" },
-  { city: "Hyderabad",  x: 410, y: 686,                carriers: 6,  pop: "Central south" },
-  { city: "Kolkata",    x: 678, y: 458,                carriers: 7,  pop: "East gateway" },
-  { city: "Ahmedabad",  x: 222, y: 450,                carriers: 5,  pop: "Gujarat" },
-];
+export function Infrastructure({ site, features, coverage }: Props) {
+  const yearsValue = parseInt(site.yearsInBusiness?.replace(/\D/g, "") || "15", 10);
+  const uptimeValue = parseFloat(site.uptimeSLA?.replace(/[^0-9.]/g, "") || "99.99");
+  const carriersValue = parseInt(site.carriers?.replace(/\D/g, "") || "40", 10);
 
-export function Infrastructure() {
+  const metrics = [
+    { value: yearsValue,    suffix: "+",  label: "Years operating" },
+    { value: Math.floor(uptimeValue), suffix: "%",  label: "Uptime SLA" },
+    { value: carriersValue, suffix: "+",  label: "Telecom carriers" },
+    { value: 24,            suffix: "/7", label: "NOC monitoring" },
+  ];
+
+  const mapNodes: MapCoverageNode[] = coverage.map((c) => ({
+    city: c.city, x: c.x ?? 0, y: c.y ?? 0,
+    primary: c.primary, carriers: c.carriers, pop: c.pop,
+  }));
+
   return (
     <section id="infrastructure" className="bg-[var(--bg-base)] py-24">
       <div className="max-w-7xl mx-auto px-6">
-
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,11 +59,10 @@ export function Infrastructure() {
             Nationwide. <span className="brand-gradient animate-gradient">By default.</span>
           </h2>
           <p className="text-[var(--text-2)] text-lg leading-relaxed">
-            Dedicated data center suites, fully enclosed ISP-private facilities, and a carrier network spanning 40+ providers across eight metros.
+            Dedicated data center suites, fully enclosed ISP-private facilities, and a carrier network spanning {site.carriers ?? "40+"} providers across {coverage.length} metros.
           </p>
         </motion.div>
 
-        {/* Metrics row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
           {metrics.map(({ value, suffix, label }, i) => (
             <motion.div
@@ -87,10 +84,7 @@ export function Infrastructure() {
           ))}
         </div>
 
-        {/* Capabilities + Coverage */}
         <div className="grid lg:grid-cols-12 gap-6">
-
-          {/* Capabilities — 7/12 cols */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -99,8 +93,6 @@ export function Infrastructure() {
           >
             <CardSpotlight className="rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] h-full" radius={460}>
               <div className="p-6 sm:p-8 h-full flex flex-col gap-6">
-
-                {/* Header band */}
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <h3 className="text-[var(--text-1)] font-bold text-xl mb-1.5 flex items-center gap-2">
@@ -115,52 +107,50 @@ export function Infrastructure() {
                   </span>
                 </div>
 
-                {/* Feature grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1">
-                  {features.map(({ icon: Icon, title, desc, color, stat, statLabel }, i) => (
-                    <motion.div
-                      key={title}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.05 }}
-                      className="group relative p-4 rounded-xl bg-[var(--bg-card-2)] border border-[var(--border)] overflow-hidden hover:border-[var(--accent-violet-border)] hover:-translate-y-0.5 transition-all duration-200"
-                    >
-                      {/* Top accent line */}
-                      <div
-                        className="absolute top-0 left-0 right-0 h-px opacity-30 group-hover:opacity-100 transition-opacity"
-                        style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
-                      />
-                      {/* Corner glow on hover — kept subtle */}
-                      <div
-                        className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none blur-2xl"
-                        style={{ background: `radial-gradient(circle, ${color}1f, transparent 70%)` }}
-                      />
-
-                      <div className="relative">
-                        {/* Top row: icon + stat */}
-                        <div className="flex items-start justify-between mb-3">
-                          <div
-                            className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-4deg]"
-                            style={{ background: `${color}22`, color, boxShadow: `inset 0 0 0 1px ${color}25` }}
-                          >
-                            <Icon size={19} />
+                  {features.map((f, i) => {
+                    const Icon  = iconFor(f.icon, ShieldCheck);
+                    const color = ACCENT_COLOR[f.accent ?? "violet"];
+                    return (
+                      <motion.div
+                        key={f.title}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05 }}
+                        className="group relative p-4 rounded-xl bg-[var(--bg-card-2)] border border-[var(--border)] overflow-hidden hover:border-[var(--accent-violet-border)] hover:-translate-y-0.5 transition-all duration-200"
+                      >
+                        <div
+                          className="absolute top-0 left-0 right-0 h-px opacity-30 group-hover:opacity-100 transition-opacity"
+                          style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
+                        />
+                        <div
+                          className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none blur-2xl"
+                          style={{ background: `radial-gradient(circle, ${color}1f, transparent 70%)` }}
+                        />
+                        <div className="relative">
+                          <div className="flex items-start justify-between mb-3">
+                            <div
+                              className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-4deg]"
+                              style={{ background: `${color}22`, color, boxShadow: `inset 0 0 0 1px ${color}25` }}
+                            >
+                              <Icon size={19} />
+                            </div>
+                            {f.stat && (
+                              <div className="text-right">
+                                <div className="text-base font-black leading-none" style={{ color }}>{f.stat}</div>
+                                <div className="text-[9px] font-semibold uppercase tracking-widest text-[var(--text-3)] mt-0.5">{f.statLabel}</div>
+                              </div>
+                            )}
                           </div>
-                          <div className="text-right">
-                            <div className="text-base font-black leading-none" style={{ color }}>{stat}</div>
-                            <div className="text-[9px] font-semibold uppercase tracking-widest text-[var(--text-3)] mt-0.5">{statLabel}</div>
-                          </div>
+                          <p className="text-[var(--text-1)] text-sm font-bold leading-tight mb-1">{f.title}</p>
+                          <p className="text-[var(--text-3)] text-[12px] leading-snug">{f.desc}</p>
                         </div>
-
-                        {/* Body */}
-                        <p className="text-[var(--text-1)] text-sm font-bold leading-tight mb-1">{title}</p>
-                        <p className="text-[var(--text-3)] text-[12px] leading-snug">{desc}</p>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    );
+                  })}
                 </div>
 
-                {/* Footer band: live status row */}
                 <div className="grid grid-cols-3 gap-4 pt-5 border-t border-[var(--border)]">
                   {[
                     { label: "Power",   pct: 100, solid: "#7c3aed" },
@@ -187,12 +177,10 @@ export function Infrastructure() {
                     </div>
                   ))}
                 </div>
-
               </div>
             </CardSpotlight>
           </motion.div>
 
-          {/* Coverage map — 5/12 cols */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -210,14 +198,13 @@ export function Infrastructure() {
                 </div>
                 <p className="text-xs text-[var(--text-3)] mb-3">Hover any metro to view details.</p>
                 <div className="flex-1 relative -mx-2">
-                  <IndiaCoverageMap nodes={coverage} />
+                  <IndiaCoverageMap nodes={mapNodes} />
                 </div>
 
-                {/* Rich info panel below the map */}
                 <div className="mt-4 grid grid-cols-3 gap-2 pt-4 border-t border-[var(--border)]">
                   {[
-                    { v: `${coverage.length}`, l: "Metros covered" },
-                    { v: `${coverage.reduce((s, n) => s + (n.carriers ?? 0), 0)}+`, l: "Carrier circuits" },
+                    { v: `${mapNodes.length}`, l: "Metros covered" },
+                    { v: `${mapNodes.reduce((s, n) => s + (n.carriers ?? 0), 0)}+`, l: "Carrier circuits" },
                     { v: "1.2B+", l: "Population reach" },
                   ].map(({ v, l }) => (
                     <div key={l} className="text-center px-1">
@@ -238,7 +225,6 @@ export function Infrastructure() {
             </CardSpotlight>
           </motion.div>
         </div>
-
       </div>
     </section>
   );
