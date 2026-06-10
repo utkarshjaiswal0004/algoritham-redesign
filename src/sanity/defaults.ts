@@ -100,19 +100,19 @@ export const FOOTER_DEFAULT: Footer = {
 };
 
 export const HOME_DEFAULT: Home = {
-  heroEyebrow:           "Algoritham Infrastructure · Est. 2009 · Mumbai",
-  heroHeadlinePre:       "End-to-End IT",
-  heroHeadlineGradient:  "Infrastructure",
-  heroHeadlinePost:      "Built to Last.",
-  heroBrandLine:         "by Algoritham — ISO 9001 · ITIL Certified · India-wide managed services",
-  heroSubhead:           "Algoritham is your complete IT partner — from servers and networking to cloud, security, and telecom. We manage the infrastructure so you can focus on growing your business.",
+  // Mega wordmark hero. heroHeadlinePre is empty so the first big line is
+  // "Algoritham" with the brand gradient; "Infrastructure" sits below in
+  // lighter weight. Subhead is intentionally empty — heroBrandLine is the
+  // single supporting tagline.
+  heroEyebrow:           "Est. 2009 · Mumbai · National IT Integrator",
+  heroHeadlinePre:       "",
+  heroHeadlineGradient:  "Algoritham",
+  heroHeadlinePost:      "Infrastructure",
+  heroBrandLine:         "End-to-end IT, built to last. India-wide managed services since 2009.",
+  heroSubhead:           "",
   heroPrimaryCta:   { label: "Get Free IT Assessment", href: "/contact",            variant: "primary" },
   heroSecondaryCta: { label: PHONE_PRIMARY,            href: "tel:+919594267666",   variant: "secondary" },
-  heroBadges: [
-    { icon: "Server", label: "{uptime} Uptime SLA",        color: "purple" },
-    { icon: "Shield", label: "ISO 9001 · ITIL Certified",  color: "rose"   },
-    { icon: "Cloud",  label: "IaaS · PaaS · SaaS",         color: "cyan"   },
-  ],
+  heroBadges: [],
   trustBarHeading:     "Trusted by leading enterprises across India",
   servicesEyebrow:     "What We Do",
   servicesHeadline:    "Everything your IT needs. Nothing it doesn't.",
