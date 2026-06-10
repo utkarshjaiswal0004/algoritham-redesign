@@ -18,23 +18,6 @@ export function MicrosoftLogo({ size = 22, className = "" }: LogoProps) {
   );
 }
 
-export function CiscoLogo({ size = 22, className = "" }: LogoProps) {
-  // Stylised "bridge" monogram — five vertical bars rising-falling
-  return (
-    <svg width={size} height={size} viewBox="0 0 28 22" className={className} aria-label="Cisco">
-      <g fill="currentColor">
-        <rect x="2"  y="9"  width="2" height="4" rx="1" />
-        <rect x="6"  y="6"  width="2" height="10" rx="1" />
-        <rect x="10" y="3"  width="2" height="16" rx="1" />
-        <rect x="14" y="6"  width="2" height="10" rx="1" />
-        <rect x="18" y="3"  width="2" height="16" rx="1" />
-        <rect x="22" y="6"  width="2" height="10" rx="1" />
-        <rect x="26" y="9"  width="2" height="4" rx="1" />
-      </g>
-    </svg>
-  );
-}
-
 export function FortinetLogo({ size = 22, className = "" }: LogoProps) {
   // Stylised "F" with a shield-like crossbar
   return (
@@ -113,7 +96,6 @@ export function IBMLogo({ size = 22, className = "" }: LogoProps) {
 
 export const PartnerLogos = {
   microsoft: MicrosoftLogo,
-  cisco:     CiscoLogo,
   fortinet:  FortinetLogo,
   dell:      DellLogo,
   hpe:       HPELogo,
