@@ -248,13 +248,13 @@ export const INFRASTRUCTURE_FEATURES_DEFAULT: InfrastructureFeature[] = [
 
 export const COVERAGE_DEFAULT: CoverageNode[] = [
   { city: "Mumbai",     x: 222, y: 595, primary: true, carriers: 12, pop: "HQ + Primary DC" },
-  { city: "Delhi NCR",  x: 370, y: 222,                carriers: 9,  pop: "North hub" },
+  { city: "Delhi NCR",  x: 350, y: 280,                carriers: 9,  pop: "North hub" },
   { city: "Bengaluru",  x: 348, y: 778,                carriers: 8,  pop: "Tech corridor" },
   { city: "Chennai",    x: 432, y: 768,                carriers: 7,  pop: "South coast" },
   { city: "Pune",       x: 258, y: 615,                carriers: 6,  pop: "West edge" },
-  { city: "Hyderabad",  x: 410, y: 686,                carriers: 6,  pop: "Central south" },
-  { city: "Kolkata",    x: 678, y: 458,                carriers: 7,  pop: "East gateway" },
-  { city: "Ahmedabad",  x: 222, y: 450,                carriers: 5,  pop: "Gujarat" },
+  { city: "Hyderabad",  x: 400, y: 646,                carriers: 6,  pop: "Central south" },
+  { city: "Kolkata",    x: 648, y: 498,                carriers: 7,  pop: "East gateway" },
+  { city: "Ahmedabad",  x: 222, y: 490,                carriers: 5,  pop: "Gujarat" },
 ];
 
 export const CASE_STUDIES_DEFAULT: CaseStudy[] = [
