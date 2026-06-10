@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import {
-  MicrosoftLogo, CiscoLogo, FortinetLogo, DellLogo,
+  MicrosoftLogo, FortinetLogo, DellLogo,
   HPELogo, VMwareLogo, AWSLogo, IBMLogo,
 } from "@/components/ui/partner-logo";
 import type { Partner, Client, SiteSettings } from "@/sanity/types";
@@ -17,7 +17,6 @@ type Props = {
 
 const LOGO_REGISTRY: Record<string, ComponentType<{ className?: string }>> = {
   Microsoft: MicrosoftLogo,
-  Cisco:     CiscoLogo,
   Fortinet:  FortinetLogo,
   Dell:      DellLogo,
   HPE:       HPELogo,
