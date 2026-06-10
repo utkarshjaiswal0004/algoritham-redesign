@@ -16,40 +16,26 @@ import {
   MobileNavToggle,
   NavbarButton,
 } from "@/components/ui/resizable-navbar";
+import type { Navigation, SiteSettings } from "@/sanity/types";
 
-const navLinks = [
-  {
-    label: "Services",
-    href: "/services",
-    children: [
-      { label: "Infrastructure",     href: "/services#infrastructure" },
-      { label: "Cloud Solutions",    href: "/services#cloud"          },
-      { label: "Cybersecurity",      href: "/services#security"       },
-      { label: "Networking",         href: "/services#networking"     },
-      { label: "Telecom",            href: "/services#telecom"        },
-      { label: "System Integration", href: "/services#integration"    },
-    ],
-  },
-  { label: "Industries",   href: "/industries"   },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "About",        href: "/about"        },
-  { label: "Contact",      href: "/contact"      },
-];
+type Props = { navigation: Navigation; site: SiteSettings };
 
-function BrandLogo() {
+function BrandLogo({ site }: { site: SiteSettings }) {
   return (
     <Link href="/" className="relative z-20 flex items-center gap-2.5 px-2 py-1 group shrink-0">
       <Image
         src="/logo.png"
-        alt="Algoritham Infrastructure"
+        alt={site.name ?? "Algoritham"}
         width={36} height={36}
         priority
         className="w-9 h-9 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3"
       />
       <div className="hidden sm:flex flex-col">
-        <span className="font-bold text-[14px] text-[var(--text-1)] tracking-tight leading-tight">Algoritham</span>
+        <span className="font-bold text-[14px] text-[var(--text-1)] tracking-tight leading-tight">
+          {site.shortName ?? "Algoritham"}
+        </span>
         <span className="text-[8.5px] font-medium text-[var(--text-3)] uppercase tracking-widest leading-tight mt-1">
-          Infrastructure Pvt. Ltd.
+          {site.name?.replace(site.shortName ?? "", "").trim() || "Infrastructure Pvt. Ltd."}
         </span>
       </div>
     </Link>
@@ -81,11 +67,13 @@ function ThemeToggle() {
 }
 
 /**
- * Custom desktop nav row with active-page underline + per-link hover pill +
- * Services dropdown. Replaces the bare NavItems primitive so we keep our
- * brand interactions while inheriting the resize behavior from NavBody.
+ * Desktop nav row: brand logo + flex-grown link strip + right-side controls.
+ * Flex-based layout replaces the prior magic-number absolute positioning,
+ * so longer brand text or CTA labels no longer push links off-centre.
  */
-function NavLinksRow({ pathname }: { pathname: string | null }) {
+function NavLinksRow({
+  links, pathname,
+}: { links: Navigation["primary"]; pathname: string | null }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -95,9 +83,9 @@ function NavLinksRow({ pathname }: { pathname: string | null }) {
   return (
     <div
       onMouseLeave={() => { setHovered(null); setOpenDropdown(null); }}
-      className="absolute inset-y-0 left-[230px] right-[260px] hidden lg:flex items-center justify-center gap-0.5"
+      className="hidden lg:flex flex-1 items-center justify-center gap-0.5"
     >
-      {navLinks.map((link, idx) => {
+      {(links ?? []).map((link, idx) => {
         const active = isActive(link.href);
         return (
           <div
@@ -105,7 +93,7 @@ function NavLinksRow({ pathname }: { pathname: string | null }) {
             className="relative"
             onMouseEnter={() => {
               setHovered(idx);
-              if (link.children) setOpenDropdown(link.label);
+              if (link.children?.length) setOpenDropdown(link.label);
               else setOpenDropdown(null);
             }}
           >
@@ -124,12 +112,12 @@ function NavLinksRow({ pathname }: { pathname: string | null }) {
                 />
               )}
               {link.label}
-              {link.children && (
+              {link.children?.length ? (
                 <ChevronDown
                   size={12}
                   className={cn("transition-transform", openDropdown === link.label && "rotate-180")}
                 />
-              )}
+              ) : null}
               {active && (
                 <motion.span
                   layoutId="nav-active-underline"
@@ -140,7 +128,7 @@ function NavLinksRow({ pathname }: { pathname: string | null }) {
             </Link>
 
             <AnimatePresence>
-              {link.children && openDropdown === link.label && (
+              {link.children?.length && openDropdown === link.label && (
                 <motion.div
                   initial={{ opacity: 0, y: 8, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -169,29 +157,31 @@ function NavLinksRow({ pathname }: { pathname: string | null }) {
   );
 }
 
-export function Navbar() {
+export function Navbar({ navigation, site }: Props) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const ctaLabel = navigation.ctaLabel ?? "Free Assessment";
+  const ctaHref  = navigation.ctaHref  ?? "/contact";
 
   return (
     <ResizableNavbar>
-      {/* ─────────── Desktop ─────────── */}
       <NavBody>
-        <BrandLogo />
-        <NavLinksRow pathname={pathname} />
-        <div className="relative z-20 flex items-center gap-2">
-          <ThemeToggle />
-          <NavbarButton href="/contact" variant="gradient">
-            Free Assessment
-            <ArrowRight size={12} />
-          </NavbarButton>
+        <div className="flex items-center w-full gap-4">
+          <BrandLogo site={site} />
+          <NavLinksRow links={navigation.primary} pathname={pathname} />
+          <div className="relative z-20 flex items-center gap-2 ml-auto">
+            <ThemeToggle />
+            <NavbarButton href={ctaHref} variant="gradient">
+              {ctaLabel}
+              <ArrowRight size={12} />
+            </NavbarButton>
+          </div>
         </div>
       </NavBody>
 
-      {/* ─────────── Mobile ─────────── */}
       <MobileNav>
         <MobileNavHeader>
-          <BrandLogo />
+          <BrandLogo site={site} />
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <MobileNavToggle isOpen={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)} />
@@ -199,7 +189,7 @@ export function Navbar() {
         </MobileNavHeader>
 
         <MobileNavMenu isOpen={mobileOpen} onClose={() => setMobileOpen(false)}>
-          {navLinks.map((link, i) => {
+          {(navigation.primary ?? []).map((link, i) => {
             const active = pathname?.startsWith(link.href);
             return (
               <motion.div
@@ -229,11 +219,11 @@ export function Navbar() {
             );
           })}
           <Link
-            href="/contact"
+            href={ctaHref}
             onClick={() => setMobileOpen(false)}
             className="mt-3 w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-[14px] font-semibold text-white bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] rounded-xl shadow-lg shadow-violet-500/25"
           >
-            Free Assessment
+            {ctaLabel}
             <ArrowRight size={14} />
           </Link>
         </MobileNavMenu>
