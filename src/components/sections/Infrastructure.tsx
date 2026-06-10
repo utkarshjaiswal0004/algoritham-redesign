@@ -107,46 +107,67 @@ export function Infrastructure({ site, features, coverage }: Props) {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1">
-                  {features.map((f, i) => {
-                    const Icon  = iconFor(f.icon, ShieldCheck);
-                    const color = ACCENT_COLOR[f.accent ?? "violet"];
+                {/* Grouped by category: Facility & Hardware vs Operations & Workloads. */}
+                <div className="flex-1 space-y-5">
+                  {[
+                    { id: "facility",   label: "Facility & Hardware",     accent: "var(--accent-violet)" },
+                    { id: "operations", label: "Operations & Workloads",  accent: "var(--accent-cyan)"   },
+                  ].map(({ id, label, accent }) => {
+                    const group = features.filter((f) => (f.category ?? "facility") === id);
+                    if (group.length === 0) return null;
                     return (
-                      <motion.div
-                        key={f.title}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.05 }}
-                        className="group relative p-4 rounded-xl bg-[var(--bg-card-2)] border border-[var(--border)] overflow-hidden hover:border-[var(--accent-violet-border)] hover:-translate-y-0.5 transition-all duration-200"
-                      >
-                        <div
-                          className="absolute top-0 left-0 right-0 h-px opacity-30 group-hover:opacity-100 transition-opacity"
-                          style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
-                        />
-                        <div
-                          className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none blur-2xl"
-                          style={{ background: `radial-gradient(circle, ${color}1f, transparent 70%)` }}
-                        />
-                        <div className="relative">
-                          <div className="flex items-start justify-between mb-3">
-                            <div
-                              className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-4deg]"
-                              style={{ background: `${color}22`, color, boxShadow: `inset 0 0 0 1px ${color}25` }}
-                            >
-                              <Icon size={19} />
-                            </div>
-                            {f.stat && (
-                              <div className="text-right">
-                                <div className="text-base font-black leading-none" style={{ color }}>{f.stat}</div>
-                                <div className="text-[9px] font-semibold uppercase tracking-widest text-[var(--text-3)] mt-0.5">{f.statLabel}</div>
-                              </div>
-                            )}
-                          </div>
-                          <p className="text-[var(--text-1)] text-sm font-bold leading-tight mb-1">{f.title}</p>
-                          <p className="text-[var(--text-3)] text-[12px] leading-snug">{f.desc}</p>
+                      <div key={id}>
+                        <div className="flex items-center gap-2 mb-2.5">
+                          <span className="w-1 h-3 rounded-full" style={{ background: accent }} />
+                          <h4 className="text-[10px] font-bold uppercase tracking-widest" style={{ color: accent }}>
+                            {label}
+                          </h4>
+                          <span className="flex-1 h-px bg-[var(--border)]" />
                         </div>
-                      </motion.div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {group.map((f, i) => {
+                            const Icon  = iconFor(f.icon, ShieldCheck);
+                            const color = ACCENT_COLOR[f.accent ?? "violet"];
+                            return (
+                              <motion.div
+                                key={f.title}
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.05 }}
+                                className="group relative p-4 rounded-xl bg-[var(--bg-card-2)] border border-[var(--border)] overflow-hidden hover:border-[var(--accent-violet-border)] hover:-translate-y-0.5 transition-all duration-200"
+                              >
+                                <div
+                                  className="absolute top-0 left-0 right-0 h-px opacity-30 group-hover:opacity-100 transition-opacity"
+                                  style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
+                                />
+                                <div
+                                  className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none blur-2xl"
+                                  style={{ background: `radial-gradient(circle, ${color}1f, transparent 70%)` }}
+                                />
+                                <div className="relative">
+                                  <div className="flex items-start justify-between mb-3">
+                                    <div
+                                      className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-4deg]"
+                                      style={{ background: `${color}22`, color, boxShadow: `inset 0 0 0 1px ${color}25` }}
+                                    >
+                                      <Icon size={19} />
+                                    </div>
+                                    {f.stat && (
+                                      <div className="text-right">
+                                        <div className="text-base font-black leading-none" style={{ color }}>{f.stat}</div>
+                                        <div className="text-[9px] font-semibold uppercase tracking-widest text-[var(--text-3)] mt-0.5">{f.statLabel}</div>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <p className="text-[var(--text-1)] text-sm font-bold leading-tight mb-1">{f.title}</p>
+                                  <p className="text-[var(--text-3)] text-[12px] leading-snug">{f.desc}</p>
+                                </div>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     );
                   })}
                 </div>

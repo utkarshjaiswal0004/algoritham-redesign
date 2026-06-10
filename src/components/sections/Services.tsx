@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Server } from "lucide-react";
+import Link from "next/link";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { iconFor } from "@/lib/icon-map";
 import type { Home, Service } from "@/sanity/types";
@@ -36,6 +37,7 @@ export function Services({ home, services }: { home: Home; services: Service[] }
           {services.map((s, i) => {
             const Icon = iconFor(s.icon, Server);
             const theme = ACCENT_THEME[s.accent ?? "violet"];
+            const href  = `/services#${s.slug?.current ?? ""}`;
             return (
               <motion.div
                 key={s.num ?? s.title}
@@ -44,34 +46,35 @@ export function Services({ home, services }: { home: Home; services: Service[] }
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
               >
-                <CardSpotlight className={`group rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] ${theme.ring} transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-0.5 h-full`}>
-                  <div className="p-6 h-full flex flex-col">
-                    <div className="flex items-start justify-between mb-5">
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${theme.icon_bg}`}>
-                        <Icon size={18} />
+                {/* Whole card is the link — clicking anywhere navigates,
+                    avoiding the prior tiny "Learn more" hit target. */}
+                <Link href={href} prefetch={true} aria-label={`Learn more about ${s.title}`} className="block h-full">
+                  <CardSpotlight className={`group rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] ${theme.ring} transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-0.5 h-full`}>
+                    <div className="p-6 h-full flex flex-col">
+                      <div className="flex items-start justify-between mb-5">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${theme.icon_bg}`}>
+                          <Icon size={18} />
+                        </div>
+                        <span className={`text-3xl font-black bg-gradient-to-br ${theme.grad} bg-clip-text text-transparent opacity-30 select-none`}>
+                          {s.num}
+                        </span>
                       </div>
-                      <span className={`text-3xl font-black bg-gradient-to-br ${theme.grad} bg-clip-text text-transparent opacity-30 select-none`}>
-                        {s.num}
+
+                      <h3 className="text-[var(--text-1)] font-bold text-lg mb-2">{s.title}</h3>
+                      <p className="text-[var(--text-2)] text-sm leading-relaxed mb-5 flex-1">{s.summary}</p>
+
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {(s.tags ?? []).map((t) => (
+                          <span key={t} className={`text-[11px] px-2.5 py-0.5 rounded-full border font-semibold ${theme.tag_bg}`}>{t}</span>
+                        ))}
+                      </div>
+
+                      <span className="flex items-center gap-1 text-xs text-[var(--text-3)] group-hover:text-[var(--accent-violet)] transition-colors mt-auto">
+                        Learn more <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </span>
                     </div>
-
-                    <h3 className="text-[var(--text-1)] font-bold text-lg mb-2">{s.title}</h3>
-                    <p className="text-[var(--text-2)] text-sm leading-relaxed mb-5 flex-1">{s.summary}</p>
-
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {(s.tags ?? []).map((t) => (
-                        <span key={t} className={`text-[11px] px-2.5 py-0.5 rounded-full border font-semibold ${theme.tag_bg}`}>{t}</span>
-                      ))}
-                    </div>
-
-                    <a
-                      href={`/services#${s.slug?.current ?? ""}`}
-                      className="flex items-center gap-1 text-xs text-[var(--text-3)] group-hover:text-[var(--text-2)] transition-colors"
-                    >
-                      Learn more <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </a>
-                  </div>
-                </CardSpotlight>
+                  </CardSpotlight>
+                </Link>
               </motion.div>
             );
           })}
