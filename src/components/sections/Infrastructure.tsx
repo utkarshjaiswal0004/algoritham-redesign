@@ -124,7 +124,8 @@ export function Infrastructure({ site, features, coverage }: Props) {
                           </h4>
                           <span className="flex-1 h-px bg-[var(--border)]" />
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {/* Single column stack — keeps the right-hand map readable. */}
+                        <div className="grid grid-cols-1 gap-3">
                           {group.map((f, i) => {
                             const Icon  = iconFor(f.icon, ShieldCheck);
                             const color = ACCENT_COLOR[f.accent ?? "violet"];

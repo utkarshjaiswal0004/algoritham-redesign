@@ -37,7 +37,7 @@ export default async function HomePage() {
   return (
     <main className="bg-[var(--bg-base)] min-h-screen">
       <Navbar navigation={nav} site={site} />
-      <Hero home={h} uptimeSLA={site.uptimeSLA ?? "99.99%"} />
+      <Hero home={h} uptimeSLA={site.uptimeSLA ?? "99.99%"} site={site} />
       <TrustBar heading={h.trustBarHeading ?? "Trusted by leading enterprises across India"} partners={partnersData} clients={clientsData} site={site} />
       <Services home={h} services={servicesData} />
       <HowItWorks home={h} steps={stepsData} />
