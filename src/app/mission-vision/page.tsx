@@ -15,14 +15,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const page = await missionVisionPage();
+  const [page, site] = await Promise.all([missionVisionPage(), siteSettings()]);
   return (
     <PageLayout>
       <BreadcrumbSchema items={[
         { name: "Home", url: "/" },
         { name: "Mission & Vision", url: "/mission-vision" },
       ]} />
-      <MissionVisionView page={page} />
+      <MissionVisionView page={page} site={site} />
     </PageLayout>
   );
 }

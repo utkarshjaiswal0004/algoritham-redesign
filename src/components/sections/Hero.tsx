@@ -6,7 +6,7 @@ import { Spotlight } from "@/components/ui/spotlight";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SkeletonGlobe } from "@/components/ui/skeleton";
 import { iconFor } from "@/lib/icon-map";
-import type { Home as HomeContent } from "@/sanity/types";
+import type { Home as HomeContent, SiteSettings } from "@/sanity/types";
 
 // Heavy canvas component — lazy-loaded so it never blocks LCP.
 const WireframeGlobe = dynamic(
@@ -14,7 +14,7 @@ const WireframeGlobe = dynamic(
   { ssr: false, loading: () => <SkeletonGlobe /> },
 );
 
-type Props = { home: HomeContent; uptimeSLA: string };
+type Props = { home: HomeContent; uptimeSLA: string; site?: SiteSettings };
 
 const COLOR_MAP: Record<string, string> = {
   purple: "var(--accent-violet)",
@@ -38,7 +38,12 @@ const COLOR_MAP: Record<string, string> = {
  *   - Top-centre Spotlight beam
  *   - Edge vignette so corners fade into the next section
  */
-export function Hero({ home, uptimeSLA }: Props) {
+export function Hero({ home, uptimeSLA, site }: Props) {
+  // Show both phone numbers under the primary CTA — Princy first, office second.
+  const phones = [
+    site?.phonePrimary,
+    ...(site?.phoneSecondary ?? []),
+  ].filter((p): p is string => Boolean(p));
   const headlineParts = [
     home.heroHeadlinePre,
     home.heroHeadlineGradient,
@@ -164,30 +169,43 @@ export function Hero({ home, uptimeSLA }: Props) {
           </motion.p>
         )}
 
-        {/* (4) CTAs */}
+        {/* (4) CTA — primary button + both phone numbers stacked below */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto"
+          className="flex flex-col items-center gap-5"
         >
           {home.heroPrimaryCta && (
             <a
               href={home.heroPrimaryCta.href}
-              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] shadow-xl shadow-violet-500/25 hover:shadow-violet-500/45 hover:-translate-y-0.5 transition-all duration-200"
+              className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] shadow-xl shadow-violet-500/25 hover:shadow-violet-500/45 hover:-translate-y-0.5 transition-all duration-200"
             >
               {home.heroPrimaryCta.label}
               <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
             </a>
           )}
-          {home.heroSecondaryCta && (
-            <a
-              href={home.heroSecondaryCta.href}
-              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold rounded-xl border border-[var(--border-strong)] bg-[var(--bg-card)] text-[var(--text-1)] hover:border-[var(--accent-violet-border)] hover:bg-[var(--bg-card-2)] hover:-translate-y-0.5 transition-all duration-200"
-            >
-              <Phone size={14} className="text-[var(--accent-violet)]" />
-              {home.heroSecondaryCta.label}
-            </a>
+
+          {phones.length > 0 && (
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-[var(--text-2)]">
+              <span className="text-xs uppercase tracking-widest font-semibold text-[var(--text-3)]">Or call</span>
+              {phones.map((p, i) => {
+                const isPrincy = i === 0;
+                return (
+                  <a
+                    key={p}
+                    href={`tel:${p.replace(/\s/g, "")}`}
+                    className="group inline-flex items-center gap-1.5 font-semibold text-[var(--text-1)] hover:text-[var(--accent-violet)] transition-colors"
+                  >
+                    <Phone size={13} className="text-[var(--accent-violet)]" />
+                    <span>{p}</span>
+                    <span className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-3)] group-hover:text-[var(--accent-violet)] transition-colors">
+                      {isPrincy ? "Princy" : "Office"}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
           )}
         </motion.div>
 
