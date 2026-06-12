@@ -9,10 +9,20 @@ import type { Home, EventPhoto } from "@/sanity/types";
 
 const Lightbox = dynamic(() => import("@/components/ui/lightbox").then(m => m.Lightbox), { ssr: false });
 
-// Sensible static fallback paths if Sanity entries don't yet carry images.
+// Fallback paths — order MUST match EVENT_PHOTOS_DEFAULT in defaults.ts.
+// 2026 events first, then the older archive.
 const FALLBACK_SRCS = [
-  "/gallery/lts.webp", "/gallery/sup.webp", "/gallery/mx.webp",
-  "/gallery/mix1.webp", "/gallery/im.webp", "/gallery/amk-team.webp",
+  "/gallery/rnr-event-2026.jpg",
+  "/gallery/adobe-immersion-2026.jpg",
+  "/gallery/adobe-ai-briefing.jpg",
+  "/gallery/adobe-ai-deep-dive.jpg",
+  "/gallery/adobe-team-2026.jpg",
+  "/gallery/lts.webp",
+  "/gallery/sup.webp",
+  "/gallery/mx.webp",
+  "/gallery/mix1.webp",
+  "/gallery/im.webp",
+  "/gallery/amk-team.webp",
 ];
 
 type Props = { home: Home; photos: EventPhoto[] };

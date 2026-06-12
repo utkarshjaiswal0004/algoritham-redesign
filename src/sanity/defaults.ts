@@ -95,6 +95,11 @@ export const FOOTER_DEFAULT: Footer = {
       { label: "Case Studies",     href: "/case-studies" },
       { label: "Events",           href: "/#events" },
     ]},
+    { heading: "Legal",      items: [
+      { label: "Privacy Policy",     href: "/legal/privacy" },
+      { label: "Terms of Service",   href: "/legal/terms"   },
+      { label: "Refund Policy",      href: "/legal/refund"  },
+    ]},
   ],
   copyrightSuffix: "Crafted with care in Mumbai",
 };
@@ -354,12 +359,19 @@ export const INDUSTRIES_DEFAULT: Industry[] = [
 ];
 
 export const EVENT_PHOTOS_DEFAULT: EventPhoto[] = [
-  { caption: "Customer Awareness Training",  alt: "3Gen Data Systems Training Event — group photo", span: "row-span-2" },
-  { caption: "Technical Training Sessions",  alt: "Technical Training Session collage",             span: "" },
-  { caption: "Partnership Meet — Crimson",   alt: "Crimson 1&3 — partnership team photos",          span: "row-span-2" },
-  { caption: "Team Day & Workshop",          alt: "Team training and group photo",                  span: "" },
-  { caption: "Customer Engagement Session",  alt: "Audience at training event",                     span: "" },
-  { caption: "Technical Knowledge Transfer", alt: "Training session collage",                       span: "" },
+  // 2026 events — first because they're freshest
+  { caption: "RNR Event 2026",                 alt: "Algoritham Infrastructure RNR Event 2026 — employees holding recognition certificates and trophies", span: "row-span-2" },
+  { caption: "Adobe Immersion 2026",            alt: "Algoritham × Ingram Micro × Adobe Immersion Event 2026 — full team group photo",                   span: ""           },
+  { caption: "Adobe AI Platform Briefing",      alt: "Adobe AI Platform briefing session in Algoritham boardroom — attendees viewing presentation",       span: ""           },
+  { caption: "Adobe AI Platform Deep-Dive",     alt: "Wider view of Adobe AI Platform deep-dive session at Algoritham — conference table with team",     span: "row-span-2" },
+  { caption: "Algoritham Team — Adobe 2026",    alt: "Algoritham team group photo at Adobe Immersion 2026 with 'Motivation On / Dedication On' wall",     span: ""           },
+  // Earlier archive
+  { caption: "Customer Awareness Training",     alt: "3Gen Data Systems Training Event — group photo",  span: "" },
+  { caption: "Technical Training Sessions",     alt: "Technical Training Session collage",              span: "" },
+  { caption: "Partnership Meet — Crimson",      alt: "Crimson 1&3 — partnership team photos",           span: "" },
+  { caption: "Team Day & Workshop",             alt: "Team training and group photo",                   span: "" },
+  { caption: "Customer Engagement Session",     alt: "Audience at training event",                      span: "" },
+  { caption: "Technical Knowledge Transfer",    alt: "Training session collage",                        span: "" },
 ];
 
 export const ABOUT_DEFAULT: AboutPage = {
