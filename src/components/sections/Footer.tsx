@@ -21,6 +21,13 @@ const Linkedin = ({ size = 15 }: { size?: number }) => (
     <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.34 18.34v-7.62H5.81v7.62h2.53Zm-1.27-8.66a1.47 1.47 0 1 0 0-2.94 1.47 1.47 0 0 0 0 2.94Zm11.27 8.66v-4.18c0-2.24-1.2-3.28-2.79-3.28a2.4 2.4 0 0 0-2.18 1.2v-1.04h-2.53v7.3h2.53V14.4c0-1.07.2-2.1 1.5-2.1 1.3 0 1.34 1.21 1.34 2.17v3.87h2.13Z"/>
   </svg>
 );
+const Instagram = ({ size = 15 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2" y="2" width="20" height="20" rx="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
 const XLogo = ({ size = 15 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M18.244 2H21l-6.51 7.43L22 22h-6.84l-4.83-6.31L4.78 22H2.02l6.97-7.96L2 2h6.99l4.36 5.78L18.244 2Zm-1.2 18.4h1.65L7.05 3.49H5.3l11.74 16.91Z"/>
@@ -43,11 +50,21 @@ const GitHub = ({ size = 15 }: { size?: number }) => (
 );
 
 const SOCIAL_ICON: Record<string, (props: { size?: number }) => React.ReactElement> = {
-  linkedin: Linkedin,
-  twitter:  XLogo,
-  facebook: Facebook,
-  whatsapp: WhatsApp,
-  github:   GitHub,
+  instagram: Instagram,
+  linkedin:  Linkedin,
+  facebook:  Facebook,
+  twitter:   XLogo,
+  whatsapp:  WhatsApp,
+  github:    GitHub,
+};
+
+const SOCIAL_LABEL: Record<string, string> = {
+  instagram: "Instagram",
+  linkedin:  "LinkedIn",
+  facebook:  "Facebook",
+  twitter:   "X (Twitter)",
+  whatsapp:  "WhatsApp",
+  github:    "GitHub",
 };
 
 type Props = { footer: FooterContent; site: SiteSettings };
@@ -208,20 +225,22 @@ export function Footer({ footer, site }: Props) {
             </div>
 
             <div className="flex items-center justify-center md:justify-start gap-2">
-              {(site.socials ?? []).map(({ platform, url }) => {
-                const Icon = SOCIAL_ICON[platform] ?? Linkedin;
-                return (
-                  <a
-                    key={platform} href={url} aria-label={platform}
-                    target="_blank" rel="noopener noreferrer"
-                    className="group relative w-10 h-10 rounded-xl flex items-center justify-center bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-2)] hover:text-white hover:border-transparent transition-all overflow-hidden"
-                  >
-                    {/* Solid brand-blue on hover (rather than the previous violet→cyan gradient) */}
-                    <span className="absolute inset-0 bg-[#1d4ed8] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span className="relative z-10"><Icon size={15} /></span>
-                  </a>
-                );
-              })}
+              {(site.socials ?? [])
+                .filter((s) => s.enabled !== false && SOCIAL_ICON[s.platform])
+                .map(({ platform, url }) => {
+                  const Icon  = SOCIAL_ICON[platform] ?? Linkedin;
+                  const label = SOCIAL_LABEL[platform] ?? platform;
+                  return (
+                    <a
+                      key={platform} href={url} aria-label={label} title={label}
+                      target="_blank" rel="noopener noreferrer"
+                      className="group relative w-10 h-10 rounded-xl flex items-center justify-center bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-2)] hover:text-white hover:border-transparent transition-all overflow-hidden"
+                    >
+                      <span className="absolute inset-0 bg-[#1d4ed8] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <span className="relative z-10"><Icon size={15} /></span>
+                    </a>
+                  );
+                })}
             </div>
           </div>
 

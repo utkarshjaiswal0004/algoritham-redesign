@@ -50,6 +50,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
       <head>
+        {/* Preconnect to Sanity CDN so image asset requests skip a handshake */}
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <OrganizationSchema site={site} />
       </head>
       <body className="bg-base text-1">

@@ -39,7 +39,9 @@ export function OrganizationSchema({ site }: { site: SiteSettings }) {
           postalCode:      site.postalCode,
           addressCountry:  site.country ?? "IN",
         },
-        sameAs: (site.socials ?? []).map(s => s.url),
+        sameAs: (site.socials ?? [])
+          .filter((s) => s.enabled !== false)
+          .map((s) => s.url),
       },
       {
         "@type": "LocalBusiness",

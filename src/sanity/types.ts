@@ -17,7 +17,11 @@ export type Metric = { value: string; label: string };
 
 export type Cta = { label: string; href: string; variant?: "primary" | "secondary" };
 
-export type SocialLink = { platform: string; url: string };
+export type SocialLink = {
+  platform: "instagram" | "linkedin" | "facebook" | "twitter" | "whatsapp" | "youtube" | "github" | string;
+  url:      string;
+  enabled?: boolean;
+};
 
 export type NavLink = {
   label: string;

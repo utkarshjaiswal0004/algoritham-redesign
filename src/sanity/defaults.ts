@@ -32,11 +32,14 @@ export const SITE_SETTINGS_DEFAULT: SiteSettings = {
   country:     "IN",
   openingHours:"Mon–Sat 09:00–19:00",
   geo:         { lat: 19.118, lng: 72.866 },
+  // Real handles provided by the team. Facebook + Twitter are staged
+  // (URL saved but hidden) — the team said accounts don't exist yet.
   socials: [
-    { platform: "linkedin", url: "https://www.linkedin.com/company/algoritham-infrastructure" },
-    { platform: "twitter",  url: "https://twitter.com/algoritham" },
-    { platform: "facebook", url: "https://www.facebook.com/algoritham" },
-    { platform: "whatsapp", url: "https://wa.me/919594267666" },
+    { platform: "instagram", url: "https://www.instagram.com/algoritham__infrastructure__?igsh=MWFkZmowZDd5OWJoYQ==", enabled: true  },
+    { platform: "linkedin",  url: "https://www.linkedin.com/company/algoritham-infrastructure-pvt.ltd/",              enabled: true  },
+    { platform: "whatsapp",  url: "https://wa.me/919594267666",                                                       enabled: true  },
+    { platform: "facebook",  url: "https://www.facebook.com/algoritham",                                              enabled: false },
+    { platform: "twitter",   url: "https://twitter.com/algoritham",                                                   enabled: false },
   ],
   uptimeSLA:           "99.99%",
   yearsInBusiness:     "15+",
