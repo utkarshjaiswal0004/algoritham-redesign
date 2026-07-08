@@ -20,7 +20,9 @@ export function ContactView({ page, site }: { page: ContactPage; site: SiteSetti
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", email: "", company: "", phone: "", service: "", message: "" });
+  // `hp` is a honeypot — real users leave it empty; bots that autofill every
+  // field will trip it and the server responds success without saving.
+  const [form, setForm] = useState({ name: "", email: "", company: "", phone: "", service: "", message: "", hp: "" });
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,7 +33,10 @@ export function ContactView({ page, site }: { page: ContactPage; site: SiteSetti
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({} as { error?: string }));
+        throw new Error(data.error ?? "Submission failed");
+      }
       setSubmitted(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Submission failed");
@@ -201,6 +206,18 @@ export function ContactView({ page, site }: { page: ContactPage; site: SiteSetti
                         value={form.message}
                         onChange={(e) => setForm({ ...form, message: e.target.value })}
                         className="w-full flex-1 px-4 py-3 rounded-xl bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text-1)] placeholder:text-[var(--text-3)] text-sm focus:outline-none focus:border-[var(--accent-violet-border)] focus:ring-2 focus:ring-[var(--accent-violet-bg)] transition-all resize-none"
+                      />
+                    </div>
+
+                    {/* Honeypot — hidden from real users, autofilled by bots.
+                        Tab-index -1 and aria-hidden so keyboard/screen-reader
+                        users skip it entirely. */}
+                    <div className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden" aria-hidden="true">
+                      <label htmlFor="hp">Do not fill this field</label>
+                      <input
+                        id="hp" type="text" tabIndex={-1} autoComplete="off"
+                        value={form.hp}
+                        onChange={(e) => setForm({ ...form, hp: e.target.value })}
                       />
                     </div>
 

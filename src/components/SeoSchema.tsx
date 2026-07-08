@@ -1,5 +1,6 @@
 import Script from "next/script";
 import type { SiteSettings } from "@/sanity/types";
+import { safeJson } from "@/lib/safe-json";
 
 const SITE = "https://algoritham.com";
 
@@ -96,7 +97,7 @@ export function OrganizationSchema({ site }: { site: SiteSettings }) {
       id="ld-organization"
       type="application/ld+json"
       strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: safeJson(data) }}
     />
   );
 }
@@ -113,7 +114,7 @@ export function FaqSchema({ faqs }: { faqs: { q: string; a: string }[] }) {
   };
   return (
     <Script id="ld-faq" type="application/ld+json" strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+      dangerouslySetInnerHTML={{ __html: safeJson(data) }} />
   );
 }
 
@@ -130,6 +131,6 @@ export function BreadcrumbSchema({ items }: { items: { name: string; url: string
   };
   return (
     <Script id="ld-breadcrumb" type="application/ld+json" strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+      dangerouslySetInnerHTML={{ __html: safeJson(data) }} />
   );
 }

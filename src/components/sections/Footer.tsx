@@ -72,7 +72,9 @@ type Props = { footer: FooterContent; site: SiteSettings };
 export function Footer({ footer, site }: Props) {
   const [showTop, setShowTop] = useState(false);
   const [email, setEmail]     = useState("");
-  const [status, setStatus]   = useState<"idle" | "loading" | "ok" | "error">("idle");
+  const [hp,    setHp]        = useState(""); // honeypot
+  const [status, setStatus]   = useState<"idle" | "loading" | "ok" | "error" | "throttled">("idle");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 800);
@@ -83,16 +85,27 @@ export function Footer({ footer, site }: Props) {
   async function onSubscribe(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!email) return;
-    setStatus("loading");
+    setStatus("loading"); setErrorMsg(null);
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "footer" }),
+        body: JSON.stringify({ email, source: "footer", hp }),
       });
-      if (!res.ok) throw new Error("Failed");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({} as { error?: string }));
+        if (res.status === 429) {
+          setStatus("throttled");
+          setErrorMsg(data.error ?? "Too many attempts — try again later.");
+          return;
+        }
+        throw new Error(data.error ?? "Failed");
+      }
       setStatus("ok"); setEmail("");
-    } catch { setStatus("error"); }
+    } catch (e) {
+      setStatus("error");
+      setErrorMsg(e instanceof Error ? e.message : "Something went wrong.");
+    }
   }
 
   return (
@@ -151,6 +164,14 @@ export function Footer({ footer, site }: Props) {
             </div>
 
             <form onSubmit={onSubscribe} className="relative lg:col-span-2 flex flex-col sm:flex-row gap-3">
+              {/* Honeypot for bots — visually hidden, no keyboard focus */}
+              <div className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="hp-newsletter">Do not fill this field</label>
+                <input
+                  id="hp-newsletter" type="text" tabIndex={-1} autoComplete="off"
+                  value={hp} onChange={(e) => setHp(e.target.value)}
+                />
+              </div>
               <input
                 type="email" required value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -165,8 +186,10 @@ export function Footer({ footer, site }: Props) {
                 <Send size={14} className="group-hover:translate-x-0.5 transition-transform" />
                 {status === "loading" ? "Subscribing…" : status === "ok" ? "Subscribed!" : "Subscribe"}
               </button>
-              {status === "error" && (
-                <p className="absolute -bottom-6 left-0 text-[11px] text-rose-500">Something went wrong. Please try again.</p>
+              {(status === "error" || status === "throttled") && errorMsg && (
+                <p className={`absolute -bottom-6 left-0 text-[11px] ${status === "throttled" ? "text-amber-500" : "text-rose-500"}`}>
+                  {errorMsg}
+                </p>
               )}
             </form>
           </motion.div>
