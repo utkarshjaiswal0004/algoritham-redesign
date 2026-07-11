@@ -17,6 +17,8 @@ import {
   partners, clients, oems, certifications, eventPhotos,
 } from "@/sanity/content";
 import { buildMetadata } from "@/lib/seo";
+import { FaqSchema } from "@/components/SeoSchema";
+import { FAQS } from "@/lib/chatbot/faqs";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [site, page] = await Promise.all([siteSettings(), home()]);
@@ -36,6 +38,9 @@ export default async function HomePage() {
 
   return (
     <main className="bg-[var(--bg-base)] min-h-screen">
+      {/* FAQ structured data — surfaces answers in Google AI Overviews and
+          LLM search (ChatGPT, Gemini, Perplexity). Same source as the chatbot. */}
+      <FaqSchema faqs={FAQS.map(({ q, a }) => ({ q, a }))} />
       <Navbar navigation={nav} site={site} />
       <Hero home={h} uptimeSLA={site.uptimeSLA ?? "99.99%"} site={site} />
       <TrustBar heading={h.trustBarHeading ?? "Trusted by leading enterprises across India"} partners={partnersData} clients={clientsData} oems={oems()} site={site} />

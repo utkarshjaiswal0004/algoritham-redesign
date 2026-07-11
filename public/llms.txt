@@ -4,6 +4,8 @@
 > enterprises across India since 2009. Mumbai HQ. ISO 9001 + ITIL certified.
 > Microsoft, Fortinet, Dell, HPE, VMware, AWS, IBM authorized partner.
 
+Full company profile for AI assistants: https://algoritham.com/llms-full.txt
+
 ## What we do
 
 - **Infrastructure** — Enterprise servers (IBM, Lenovo, HP, Dell), data center suites, virtualization, storage. Managed end-to-end with 24/7 NOC monitoring.

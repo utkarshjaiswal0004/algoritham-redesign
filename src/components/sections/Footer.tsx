@@ -121,7 +121,7 @@ export function Footer({ footer, site }: Props) {
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.92 }}
             transition={{ type: "spring", stiffness: 320, damping: 22 }}
-            className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#06b6d4] shadow-xl shadow-violet-500/40 hover:shadow-violet-500/60 text-white flex items-center justify-center"
+            className="fixed bottom-24 right-6 z-50 w-12 h-12 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#06b6d4] shadow-xl shadow-violet-500/40 hover:shadow-violet-500/60 text-white flex items-center justify-center"
             aria-label="Scroll to top"
           >
             <ArrowUp size={16} />

@@ -1,0 +1,147 @@
+# Algoritham Infrastructure Pvt. Ltd. — Full Company Profile
+# This document is provided for AI assistants and search crawlers.
+# Canonical short version: https://algoritham.com/llms.txt
+
+## Who we are
+
+Algoritham Infrastructure Pvt. Ltd. ("Algoritham") is a Mumbai-based national
+technology integrator founded in 2009. We provide end-to-end managed IT
+services for enterprises across India: infrastructure, cloud, cybersecurity,
+networking, telecom, and system integration. ISO 9001 certified since 2011,
+ITIL-aligned delivery, 1200+ enterprise projects, 99.99% uptime SLA.
+
+Website: https://algoritham.com
+Contact: +91-95942-67666 (Princy Gupta, primary) · +91-99301-81363 · 022-35131125
+Email: info@algoritham.in
+Address: 1102, 11th Floor, Chandak Chamber, Western Express Highway, Andheri East, Mumbai 400069
+Hours: Mon–Sat 09:00–19:00 for new enquiries; 24/7 for managed-service clients.
+
+## Services (detailed)
+
+### 1. Infrastructure
+Design, deployment and 24/7 management of enterprise-grade IT infrastructure:
+x86, Power, Blade and Hyper-Converged servers; dedicated data-center suites;
+SAN/NAS storage with clustering and failover; server and desktop
+virtualization; high-availability clustering with no single point of failure.
+Enterprise OEMs: IBM, Lenovo, HP, Dell. Key metric: 99.99% uptime SLA.
+
+### 2. Cloud Solutions
+IaaS, PaaS and SaaS architecture, migration and operations across AWS, Azure
+and Google Cloud — vendor neutral. Cost optimisation and right-sizing,
+multi-cloud and hybrid architecture. Typical outcome: 30–70% cost reduction.
+
+### 3. Cybersecurity
+FortiGate UTM bundles, IPS and antivirus with FortiGuard real-time
+intelligence, web filtering and application control, AES-256 encryption at
+rest and TLS 1.3 in transit, zero-trust architecture, security audits and
+compliance reporting. Vendors: Fortinet, Symantec, McAfee, Trend Micro.
+
+### 4. Networking
+Proactive management of firewalls, routers and switches; utilisation
+monitoring, error tracking and threshold alerts; VLAN, LACP and trunking
+optimisation; MPLS and SD-WAN for multi-site private networks; 24/7 NOC with
+passive and active monitoring. Mean time to respond: under 15 minutes.
+Vendors: HP, Juniper, Fortinet, Ubiquiti.
+
+### 5. Telecom
+Negotiation across a 40+ carrier network guaranteeing lowest prices: hosted
+PBX, SIP trunks, voice T1 (up to 24 lines, PRI), internet and bonded T1,
+business Ethernet up to 135 Mbps symmetrical, MPLS, VOIP, DS3/OC3/OC12/OC48
+enterprise circuits, colocation. Typical savings: 30–70%.
+
+### 6. System Integration
+Embedding new IT systems into existing environments, in-house and
+cross-organisational; Facility Management Services (FMS); data-center
+migration; Active Directory implementation; consultation and project
+management; corporate governance and IT policy frameworks. ISO 9001 and
+ITIL-certified delivery teams across Microsoft, IBM, HP and Fortinet stacks.
+
+## Engagement process
+
+1. Assess — free IT environment audit by certified engineers (2–3 business
+   days): servers, network, security posture, cloud footprint.
+2. Design — custom strategy session: tailored roadmap, vendor selection,
+   cost modelling, phased rollout.
+3. Deploy & Manage — implementation plus 24/7 support: proactive monitoring,
+   maintenance, round-the-clock helpdesk. 99.99% uptime SLA.
+
+## Industries served
+
+Healthcare (EHR management, HIPAA-aligned infrastructure, 24×7 monitoring);
+Financial Services (data protection, disaster recovery, audit support);
+Manufacturing & Distribution (managed cloud storage, ERP integration);
+Transportation (fleet connectivity, IoT); Government & Municipal (20+ years
+public-sector experience); Consumer Products; Start-ups (low-CapEx scalable
+IT); Entertainment; Energy (SCADA support, remote monitoring); Technology
+companies.
+
+## Selected case studies
+
+- Leading Investment Group (Financial Services): hybrid cloud with dedicated
+  on-premise servers for sensitive data + AWS for scale, FortiGate policies,
+  MPLS backbone, centralised NOC. Outcome: 99.99% uptime in 3 months,
+  compliance audit passed, 35% OpEx reduction.
+- Financial Services Major: MPLS backbone across 12 offices, unified
+  FortiGate UTM, 24/7 NOC, Exchange → Microsoft 365 migration. Outcome:
+  zero network outages, unified security posture, 2 FTE savings.
+- Online Shopping Channel (E-commerce): auto-scaling IaaS on AWS with load
+  balancers, CDN, database read replicas. Outcome: zero downtime across
+  three peak sale events, 3× traffic capacity, complaints down 90%.
+- Oracle Database on AWS (Technology): licence audit, EC2 right-sizing,
+  reserved instances, Oracle storage optimisation. Outcome: 40% lower
+  monthly cloud spend, 60% faster queries, licence compliance.
+
+## Selected clients
+
+Sula Vineyards, RSM, Hansa Cequity, Rusan Pharma, Shilpa Medicare, Goodrich
+Maritime, upGrad, Red Chillies Entertainment, Eros International, Neoniche,
+Ullu, Eduauraa, Sapura Energy, Shemaroo Entertainment, SFC Energy, Mahindra
+Lifespaces, Gandhi Automations, Ajmal Perfumes, Akasa Air, Susten by
+Mahindra, TBZ, Agilus Diagnostics, Naaptol, IDfy, BCCL.
+
+## OEM alliances
+
+IBM, HP, AWS, Microsoft, Tata Communications, Adobe, Juniper Networks,
+Red Hat, Veeam, Lenovo, McAfee, Acronis, Microsoft Azure, HPE, Tyco, Molex,
+Netmagic (NTT), NetApp, Commvault, Druva, CorelDRAW, SolarWinds, Sophos,
+D-Link, Check Point, Schneider Electric, Veritas, VMware, APC, AMP
+Netconnect, Barracuda Networks, Dell EMC, Emerson, Seqrite, Digilink,
+Fortinet, 3Gen Consulting.
+
+## Coverage
+
+8 metros with on-ground presence: Mumbai (HQ + primary data center),
+Delhi NCR, Bengaluru, Chennai, Pune, Hyderabad, Kolkata, Ahmedabad.
+Carrier circuits in 40+ Indian cities. Tier 3+ facilities, 100% power and
+network SLA.
+
+## Frequently asked questions
+
+Q: What services does Algoritham offer?
+A: Infrastructure, Cloud Solutions, Cybersecurity, Networking, Telecom, and
+System Integration — managed end-to-end for Indian enterprises.
+
+Q: How do I contact Algoritham or schedule a meeting?
+A: Call Princy Gupta at +91-95942-67666, the office at +91-99301-81363 or
+022-35131125, or email info@algoritham.in. A free IT assessment can be
+requested at https://algoritham.com/contact — replies within 1 business day.
+
+Q: What uptime does Algoritham guarantee?
+A: 99.99% uptime SLA on managed estates, with Tier 3+ facilities and a 24/7
+NOC responding in under 15 minutes on average.
+
+Q: How much can Algoritham save on telecom?
+A: Typically 30–70%, negotiated across a 40+ carrier network.
+
+Q: How long has Algoritham been operating?
+A: Since 2009 — 15+ years, 1200+ enterprise projects delivered.
+
+## Site map for crawlers
+
+- https://algoritham.com/            — home
+- https://algoritham.com/services    — service detail
+- https://algoritham.com/industries  — industries served
+- https://algoritham.com/case-studies — case studies with metrics
+- https://algoritham.com/about       — history and values
+- https://algoritham.com/mission-vision — mission, vision, principles
+- https://algoritham.com/contact     — contact + free assessment form

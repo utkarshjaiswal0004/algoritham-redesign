@@ -226,6 +226,46 @@ new** → fill in → Publish.
 
 ---
 
+## Chat assistant
+
+A floating chat widget (bottom-right, every page) answers visitor questions
+about Algoritham's services, coverage, and track record, and can hand off to
+a phone call or capture a meeting request (saved to **Contact submissions**
+in Studio with service = "Meeting Request (Chat)").
+
+**How it stays on-topic:** the assistant is grounded on a knowledge document
+compiled live from Sanity content (services, industries, case studies,
+certifications, site settings) plus a curated FAQ list in
+`src/lib/chatbot/faqs.ts`. It is instructed to answer only from that
+document — it will not invent prices, SLAs, or capabilities. Editing content
+in Sanity automatically updates the bot's knowledge (10-minute cache).
+
+**Two modes:**
+
+| Mode | When | Behaviour |
+|---|---|---|
+| **FAQ mode** (default) | No `CHATBOT_API_KEY` set | Instant keyword-matched answers from the FAQ base. Free, zero setup. |
+| **AI mode** | `CHATBOT_API_KEY` set in Vercel | Streamed conversational answers from any OpenAI-compatible LLM provider, grounded on the knowledge document. |
+
+**Enabling AI mode:** create an API key at any OpenAI-compatible provider
+(e.g. groq.com — free tier available), then set in Vercel env vars:
+
+```bash
+CHATBOT_API_URL=https://api.groq.com/openai/v1   # or your provider's base URL
+CHATBOT_API_KEY=<your key>
+CHATBOT_MODEL=llama-3.3-70b-versatile            # or your provider's model id
+```
+
+Redeploy after setting. If the provider errors or the key is removed, the
+bot silently degrades to FAQ mode — it never shows a broken state.
+The endpoint is rate-limited (20 messages / 5 min per IP).
+
+To edit the bot's canned knowledge: `src/lib/chatbot/faqs.ts` (FAQs, also
+used for the home page's FAQ structured data) and
+`src/lib/chatbot/knowledge.ts` (what Sanity content gets compiled in).
+
+---
+
 ## Forms (contact + newsletter)
 
 - **Contact form** (`/contact`) → saves to **Contact submissions** in Studio.

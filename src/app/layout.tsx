@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { OrganizationSchema } from "@/components/SeoSchema";
+import { ChatWidget } from "@/components/chatbot/ChatWidget";
 import { siteSettings } from "@/sanity/content";
 import { buildMetadata } from "@/lib/seo";
 
@@ -57,6 +58,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="bg-base text-1">
         <ThemeProvider>{children}</ThemeProvider>
+        <ChatWidget
+          phonePrimary={site.phonePrimary ?? "+91 95942 67666"}
+          phoneOffice={site.phoneSecondary?.[0]}
+          email={site.email}
+        />
         <Analytics />
         <SpeedInsights />
       </body>
