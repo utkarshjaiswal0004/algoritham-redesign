@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 import { writeClient } from "@/sanity/client";
 import { rateLimit, clientKey } from "@/lib/rate-limit";
@@ -51,7 +52,9 @@ export async function POST(req: Request) {
     }
 
     const client = writeClient();
+    // Node built-in crypto for the document ID — no transitive uuid dependency.
     await client.create({
+      _id:       `contactSubmission.${randomUUID()}`,
       _type:     "contactSubmission",
       name,
       email,
@@ -64,7 +67,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true });
   } catch (e) {
-    console.error("[api/contact]", e);
+    const status = (e as { statusCode?: number })?.statusCode;
+    console.error("[api/contact] failed", status ? `(sanity status ${status})` : "", e);
     return NextResponse.json({ error: "Could not submit message" }, { status: 500 });
   }
 }

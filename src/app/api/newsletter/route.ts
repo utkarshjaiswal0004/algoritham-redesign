@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 import { writeClient } from "@/sanity/client";
 import { rateLimit, clientKey } from "@/lib/rate-limit";
@@ -41,7 +42,10 @@ export async function POST(req: Request) {
     const source = typeof body.source === "string" ? body.source.slice(0, 64) : undefined;
 
     const client = writeClient();
+    // Generate the document ID here with Node's built-in crypto so the write
+    // path never depends on any transitive uuid package.
     await client.create({
+      _id: `subscriber.${randomUUID()}`,
       _type: "subscriber",
       email,
       source,
@@ -50,8 +54,11 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true });
   } catch (e) {
-    // Log server-side, return generic to client — do not leak internals
-    console.error("[api/newsletter]", e);
+    // Log full detail server-side (visible in Vercel logs), return generic to
+    // client. Surface the Sanity HTTP status so token/permission failures are
+    // obvious in the logs without leaking anything to the caller.
+    const status = (e as { statusCode?: number })?.statusCode;
+    console.error("[api/newsletter] failed", status ? `(sanity status ${status})` : "", e);
     return NextResponse.json({ error: "Could not save subscription" }, { status: 500 });
   }
 }
