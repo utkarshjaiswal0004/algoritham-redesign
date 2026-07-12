@@ -221,14 +221,14 @@ export function Footer({ footer, site }: Props) {
             )}
 
             <div className="space-y-2.5 w-full max-w-sm mb-6">
-              {site.email && (
-                <a href={`mailto:${site.email}`} className="group flex items-center justify-center md:justify-start gap-2.5 text-sm text-[var(--text-2)] hover:text-[var(--accent-violet)] transition-colors">
+              {[site.email, site.emailSecondary].filter(Boolean).map((addr) => (
+                <a key={addr} href={`mailto:${addr}`} className="group flex items-center justify-center md:justify-start gap-2.5 text-sm text-[var(--text-2)] hover:text-[var(--accent-violet)] transition-colors">
                   <span className="w-7 h-7 rounded-lg bg-[var(--bg-card)] border border-[var(--border)] flex items-center justify-center group-hover:border-[var(--accent-violet-border)] transition-colors">
                     <Mail size={12} />
                   </span>
-                  {site.email}
+                  {addr}
                 </a>
-              )}
+              ))}
               {site.phonePrimary && (
                 <a href={`tel:${site.phonePrimary.replace(/\s/g, "")}`} className="group flex items-center justify-center md:justify-start gap-2.5 text-sm text-[var(--text-2)] hover:text-[var(--accent-violet)] transition-colors">
                   <span className="w-7 h-7 rounded-lg bg-[var(--bg-card)] border border-[var(--border)] flex items-center justify-center group-hover:border-[var(--accent-violet-border)] transition-colors">
@@ -315,18 +315,6 @@ export function Footer({ footer, site }: Props) {
           </div>
         </div>
 
-        {/* Developer credit */}
-        <div className="pt-5 text-center md:text-right">
-          <a
-            href="https://utkarshjaiswal.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Utkarsh Jaiswal — AI Implementation Engineer & Full-Stack Developer · Portfolio: utkarshjaiswal.dev · LinkedIn: linkedin.com/in/utkarshjaiswal1997 · info@utkarshjaiswal.dev · +91 9717537597"
-            className="text-[11px] text-[var(--text-3)] hover:text-[var(--accent-violet)] transition-colors"
-          >
-            Designed &amp; developed by <span className="font-semibold">Utkarsh Jaiswal</span>
-          </a>
-        </div>
       </div>
     </footer>
   );

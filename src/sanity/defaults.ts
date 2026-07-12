@@ -24,7 +24,8 @@ export const SITE_SETTINGS_DEFAULT: SiteSettings = {
   foundedYear: 2009,
   phonePrimary:   PHONE_PRIMARY,
   phoneSecondary: PHONE_SECONDARY,
-  email:       "info@algoritham.in",
+  email:          "info@algoritham.in",
+  emailSecondary: "info@algoritham.com",
   addressLine: "1102, 11th Floor, Chandak Chamber, Western Express Highway",
   city:        "Andheri East, Mumbai",
   region:      "Maharashtra",
@@ -498,7 +499,7 @@ export const CONTACT_PAGE_DEFAULT: ContactPage = {
   details: [
     { icon: "Phone",  label: "Call us",      value: PHONE_PRIMARY,        sub: "Princy Gupta · 9594267666", href: "tel:+919594267666"        },
     { icon: "Phone",  label: "Alternate",    value: "+91 99301 81363",    sub: "022-35131125 · landline",  href: "tel:+919930181363"        },
-    { icon: "Mail",   label: "Write to us",  value: "info@algoritham.in", sub: "Replies within 1 business day",  href: "mailto:info@algoritham.in" },
+    { icon: "Mail",   label: "Write to us",  value: "info@algoritham.in", sub: "or info@algoritham.com · replies within 1 business day",  href: "mailto:info@algoritham.in" },
     { icon: "MapPin", label: "Office",       value: "Mumbai 400069",      sub: "1102, Chandak Chamber, Andheri E" },
     { icon: "Clock",  label: "Availability", value: "24/7 Managed Ops",   sub: "Mon–Sat 9am–7pm · new enquiries" },
   ],

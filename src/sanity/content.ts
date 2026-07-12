@@ -6,7 +6,13 @@
 import * as Q from "./queries";
 import * as D from "./defaults";
 
-export const siteSettings  = async () => (await Q.getSiteSettings())   ?? D.SITE_SETTINGS_DEFAULT;
+// Merge the default UNDER the Sanity doc so that fields added to the schema
+// after the doc was created (e.g. emailSecondary) fall back to the default
+// instead of showing as undefined. Sanity values always win where present.
+export const siteSettings  = async () => {
+  const s = await Q.getSiteSettings();
+  return s ? { ...D.SITE_SETTINGS_DEFAULT, ...s } : D.SITE_SETTINGS_DEFAULT;
+};
 export const navigation    = async () => (await Q.getNavigation())     ?? D.NAVIGATION_DEFAULT;
 export const footer        = async () => (await Q.getFooter())         ?? D.FOOTER_DEFAULT;
 export const home          = async () => (await Q.getHome())           ?? D.HOME_DEFAULT;

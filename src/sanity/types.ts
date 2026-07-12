@@ -40,6 +40,7 @@ export type SiteSettings = {
   phonePrimary?:   string;
   phoneSecondary?: string[];
   email?:          string;
+  emailSecondary?: string;
   addressLine?:    string;
   city?:           string;
   region?:         string;

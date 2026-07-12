@@ -28,7 +28,7 @@ export function OrganizationSchema({ site }: { site: SiteSettings }) {
           "@type":          "ContactPoint",
           telephone:        site.phonePrimary,
           contactType:      "customer service",
-          email:            site.email,
+          email:            [site.email, site.emailSecondary].filter(Boolean),
           areaServed:       site.country ?? "IN",
           availableLanguage:["en", "hi"],
         }],

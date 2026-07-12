@@ -1,11 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowRight, Target } from "lucide-react";
+import { CheckCircle, ArrowRight, Target, Code2 } from "lucide-react";
 import Link from "next/link";
 import { Timeline } from "@/components/ui/timeline";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { ParallaxLogo } from "@/components/ui/parallax-logo";
 import { iconFor } from "@/lib/icon-map";
+import { DEVELOPER } from "@/lib/seo";
 import type { AboutPage, Certification, SiteSettings } from "@/sanity/types";
 
 type Props = { page: AboutPage; site: SiteSettings; certifications: Certification[] };
@@ -136,6 +137,41 @@ export function AboutView({ page, site, certifications }: Props) {
                 <span className="text-sm font-semibold text-[var(--text-1)]">{cert.title}</span>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Website credits ─────────────────────────────────────────
+          Visible, server-rendered developer credit — crawlable and
+          analysable by Google and LLM search (complements the JSON-LD
+          Person entity and per-page developer meta tags). */}
+      <section className="py-16 px-6 border-t border-[var(--border)] bg-[var(--bg-card)]">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="inline-flex items-center gap-2 text-[10px] font-bold text-[var(--accent-violet)] uppercase tracking-widest mb-4">
+            <Code2 size={12} /> Website Credits
+          </p>
+          <h2 className="text-lg sm:text-xl font-bold text-[var(--text-1)] tracking-tight mb-3">
+            Designed &amp; developed by{" "}
+            <a
+              href={DEVELOPER.portfolio}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="brand-gradient hover:opacity-80 transition-opacity"
+            >
+              {DEVELOPER.name}
+            </a>
+          </h2>
+          <p className="text-[var(--text-2)] text-sm leading-relaxed max-w-2xl mx-auto mb-5">
+            {DEVELOPER.bio}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold">
+            <a href={DEVELOPER.portfolio} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-violet)] hover:opacity-80 transition-opacity">Portfolio</a>
+            <span className="text-[var(--border-strong)]">·</span>
+            <a href={DEVELOPER.linkedin} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-violet)] hover:opacity-80 transition-opacity">LinkedIn</a>
+            <span className="text-[var(--border-strong)]">·</span>
+            <a href={`mailto:${DEVELOPER.email}`} className="text-[var(--accent-violet)] hover:opacity-80 transition-opacity">{DEVELOPER.email}</a>
+            <span className="text-[var(--border-strong)]">·</span>
+            <a href={`tel:${DEVELOPER.phone.replace(/\s/g, "")}`} className="text-[var(--accent-violet)] hover:opacity-80 transition-opacity">{DEVELOPER.phone}</a>
           </div>
         </div>
       </section>

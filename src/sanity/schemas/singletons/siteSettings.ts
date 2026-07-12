@@ -24,6 +24,7 @@ export default defineType({
     defineField({ name: "phonePrimary",   title: "Primary phone",  type: "string", group: "contact" }),
     defineField({ name: "phoneSecondary", title: "Other phones",   type: "array",  of: [{ type: "string" }], group: "contact" }),
     defineField({ name: "email",          title: "Email",          type: "string", group: "contact" }),
+    defineField({ name: "emailSecondary", title: "Secondary email", type: "string", group: "contact", description: "Optional second email shown alongside the primary one." }),
     defineField({ name: "addressLine",    title: "Address line",   type: "string", group: "contact" }),
     defineField({ name: "city",           title: "City",           type: "string", group: "contact" }),
     defineField({ name: "region",         title: "Region/State",   type: "string", group: "contact" }),
