@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MessageCircle, X, Send, Phone, CalendarClock, Sparkles,
-  ArrowLeft, CheckCircle,
+  ArrowLeft, CheckCircle, RotateCcw,
 } from "lucide-react";
 
 type Msg = { role: "user" | "assistant"; content: string };
@@ -118,6 +118,15 @@ export function ChatWidget({ phonePrimary, phoneOffice, email }: Props) {
     }
   }, [busy, messages, phonePrimary]);
 
+  // Clear the conversation and return to the fresh greeting + suggestions.
+  const resetChat = useCallback(() => {
+    setMessages([GREETING]);
+    setInput("");
+    setPanel("chat");
+    try { sessionStorage.removeItem("algo-chat"); } catch { /* ignore */ }
+    setTimeout(() => inputRef.current?.focus(), 0);
+  }, []);
+
   async function submitMeeting(e: React.FormEvent) {
     e.preventDefault();
     setMeetingBusy(true); setMeetingErr(null);
@@ -207,13 +216,25 @@ export function ChatWidget({ phonePrimary, phoneOffice, email }: Props) {
                     Online — replies instantly
                   </p>
                 </div>
-                <button
-                  onClick={() => setOpen(false)}
-                  aria-label="Close chat"
-                  className="ml-auto w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
-                >
-                  <X size={15} />
-                </button>
+                <div className="ml-auto flex items-center gap-1.5">
+                  {panel === "chat" && messages.length > 1 && (
+                    <button
+                      onClick={resetChat}
+                      aria-label="Start a new chat"
+                      title="New chat"
+                      className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
+                    >
+                      <RotateCcw size={14} />
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setOpen(false)}
+                    aria-label="Close chat"
+                    className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
+                  >
+                    <X size={15} />
+                  </button>
+                </div>
               </div>
             </div>
 
