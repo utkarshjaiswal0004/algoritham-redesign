@@ -18,7 +18,7 @@ const SUGGESTED = [
 const GREETING: Msg = {
   role: "assistant",
   content:
-    "Hi! I'm the Algoritham assistant. Ask me anything about our IT services, coverage, or track record — or use the buttons below to call us or schedule a meeting.",
+    "Hi, I'm Aria 👋 — your assistant at Algoritham. Whether you're weighing up managed IT, cloud, cybersecurity, networking, or telecom for your business, I can help you find the right fit and the real numbers behind it — or connect you straight to our team. What are you working on?",
 };
 
 type Panel = "chat" | "schedule" | "scheduled";
@@ -201,7 +201,7 @@ export function ChatWidget({ phonePrimary, phoneOffice, email }: Props) {
                   <Sparkles size={16} />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-bold text-sm leading-tight">Algoritham Assistant</p>
+                  <p className="font-bold text-sm leading-tight">Aria · Algoritham Assistant</p>
                   <p className="text-[11px] text-white/75 leading-tight flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-300 animate-pulse" />
                     Online — replies instantly
